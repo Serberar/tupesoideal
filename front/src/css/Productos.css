@@ -1,0 +1,57 @@
+.containerProductos {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .h1Productos {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .divProducto {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .tituloProducto {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .imagenProducto {
+    max-width: 300px;
+    margin-bottom: 15px;
+  }
+  
+  .descripcionProducto {
+    margin-bottom: 15px;
+  }
+  
+  .precioProducto {
+    font-size: 18px;
+  }
+  
+  .pProductos {
+    margin: 0;
+  }
+  
+  .botonCarrito {
+    background-color: #618a5d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .botonCarrito:hover {
+    background-color: #385236;
+  }
+  
