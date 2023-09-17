@@ -55,3 +55,67 @@
     background-color: #385236;
   }
   
+  /* Estilos para el carrito de compras */
+.carritoProducto {
+  position: fixed;
+  margin: 10px;
+  padding: 10px;
+  width: 380px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.carritoImagenProducto {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+/* Estilos para la lista de elementos en el carrito */
+.ulCarritoProducto {
+  list-style: none;
+  padding: 0;
+}
+
+.spanCarritoProducto{
+  margin: 2px;
+  text-align: center;
+}
+/* Estilos para los elementos individuales en el carrito */
+.ulCarritoProducto li {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Estilos para los botones en el carrito */
+.botoneliminarCarritoProducto {
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  margin: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.botoneliminarCarritoProducto:hover {
+  background-color: #a72d24;
+}
+
+/* Estilos para el botón "Finalizar compra" */
+.botonFinalizarCompraCarritoProducto {
+  width: 100%;
+  background-color: #618a5d;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.botonFinalizarCompra:hover {
+  background-color: #385236;
+}

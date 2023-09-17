@@ -13,6 +13,9 @@ const Enlaces = () => {
       <li>
         <NavLink to="/productos">Productos</NavLink>
       </li>
+      <li>
+        <NavLink to="/carrito">Carrito</NavLink>
+      </li>
     </ul>
   </nav>
         </div>
