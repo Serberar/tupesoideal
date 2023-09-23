@@ -1,0 +1,65 @@
+.registroContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f2f2f2;
+  }
+  
+  .registroFormulario {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 60vw;
+    text-align: center;
+  }
+  
+  .registroFormulario h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .registrocampo {
+    margin-bottom: 15px;
+  }
+  
+  .registrocampo label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .registroInput {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .registroBoton {
+    width: 100%;
+    padding: 10px;
+    background-color: #618a5d;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .registroBoton:hover {
+    background-color: #385236;
+  }
+  
+  .success-message {
+    color: green;
+    margin-top: 10px;
+  }
+  
+  .error-message {
+    color: red;
+    margin-top: 10px;
+  }
+  

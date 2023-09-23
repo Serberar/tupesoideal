@@ -1,4 +1,4 @@
-const conectar = require('../../utils/conexion');
+const {conectar} = require('../../utils/conexion');
 
 async function getProducto(req, res) {
   try {
