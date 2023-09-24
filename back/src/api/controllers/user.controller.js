@@ -6,7 +6,7 @@ async function crearUsuario(req, res) {
     const WordPress = WPconexion();
     const nuevoUsuario = req.body; 
 
-    const response = await WordPress.post('/users', nuevoUsuario);
+    const response = await WordPress.post('users', nuevoUsuario);
 
     if (response.status === 201) {
       console.log('Usuario creado con éxito');

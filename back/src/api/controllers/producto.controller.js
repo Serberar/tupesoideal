@@ -1,13 +1,15 @@
-const {conectar} = require('../../utils/conexion');
+const {WCconexion} = require('../../utils/conexion');
 
 async function getProducto(req, res) {
   try {
-    const WooCommerce = conectar();
-    const products = await WooCommerce.getAsync('products');
-    return res.json(products);
+    const WooCommerce = WCconexion();
+    const response = await WooCommerce.get('products');
+    const products = response.data;
+    res.json(products);
   } catch (error) {
     console.error('Error descargando productos:', error);
-    res.status(500).json({ error: 'Error descargando productos' });
+    const errorMessage = error.message || 'Error descargando productos';
+    res.status(500).json({ error: errorMessage });
   }
 }
 

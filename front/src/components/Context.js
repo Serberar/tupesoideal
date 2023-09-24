@@ -16,10 +16,10 @@ export class MyProvider extends Component {
   productosDescargados = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/producto`);
-      console.log('Productos descargados:', JSON.parse(response.data.body).products);
+      console.log('Productos descargados:', response.data);
   
       this.setState({
-        Productos: JSON.parse(response.data.body).products
+        Productos: response.data
       });
     } catch (error) {
       console.error('Error al realizar la solicitud:', error);
