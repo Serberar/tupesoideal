@@ -1,8 +1,13 @@
 const express = require('express');
-const { crearUsuario } = require('../controllers/user.controller');
+const { crearUsuario, getUsuario, autenticarUsuario } = require('../controllers/user.controller');
 
 const router = express.Router();
 
-router.post("/registro", crearUsuario);
+router.get("/", getUsuario);
+router.post("/registro", crearUsuario); 
+router.post("/login", autenticarUsuario);
+
+
+
 
 module.exports = router;
