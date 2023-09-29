@@ -1,0 +1,70 @@
+.loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f2f2f2;
+  }
+  
+  .loginFormulario {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 60vw;
+    text-align: center;
+  }
+  
+  .loginFormulario h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .logincampo {
+    margin-bottom: 15px;
+  }
+  
+  .logincampo label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .loginInput {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .loginBoton {
+    width: 97%;
+    padding: 10px;
+    background-color: #618a5d;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .loginBoton:hover {
+    background-color: #385236;
+  }
+   
+  .enlaceRegistro{
+    margin-top: 20px;
+  }
+  
+  .botonRegistroLogin{
+    width: 97%;
+    margin: 10px;
+    padding: 10px;
+    background-color: #618a5d;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }

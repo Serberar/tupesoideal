@@ -3,7 +3,8 @@ import { myContext } from '../components/Context';
 import '../css/Carrito.css'
 
 const Carrito = () => {
-  const { state, eliminarDelCarrito } = useContext(myContext);
+
+  const { state, eliminarDelCarrito, enviarPedido } = useContext(myContext);
 
   return (
     <div className='carrito'>
@@ -24,7 +25,7 @@ const Carrito = () => {
         ))}
       </ul>
       <p>Subtotal: {state.subtotal}€</p>
-      <button>Finalizar compra</button>
+      <button onClick={() => enviarPedido()}>Comprar</button>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { myContext } from '../components/Context';
 import '../css/Productos.css';
 
 const Productos = () => {
-  const { state, productosDescargados, agregarAlCarrito, eliminarDelCarrito } = useContext(myContext);
+  const { state, productosDescargados, agregarAlCarrito, eliminarDelCarrito,enviarPedido } = useContext(myContext);
 
   useEffect(() => {
     productosDescargados();
@@ -26,7 +26,7 @@ const Productos = () => {
             ))}
           </ul>
           <p>Total: {state.subtotal}€</p>
-          <button className='botonFinalizarCompraCarritoProducto' >Finalizar compra</button>
+          <button className='botonFinalizarCompraCarritoProducto' onClick={() => enviarPedido()}>Finalizar compra</button>
         </div>
       )}
 

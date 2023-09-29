@@ -9,7 +9,13 @@ export class MyProvider extends Component {
   state = {
     Productos: [],
     items: [],
-    subtotal: 0
+    subtotal: 0,
+    userData: null,
+  }
+
+   // Llama a productosDescargados automáticamente al cargar la página
+  async componentDidMount() {
+    await this.productosDescargados();
   }
 
   // Descargar la lista de productos
@@ -95,11 +101,74 @@ export class MyProvider extends Component {
     return Number( Math.round(value+'e'+decimals)+'e-'+decimals );
   }
 
+  // Almacena los datos del usuario
+almacenarDatosUsuario = (datosUsuario) => {
+  this.setState({ userData: datosUsuario });
+}
+
+//envia los datos del pedido
+enviarPedido = async () => {
+  const { userData, items } = this.state;
+  const usuario = Array.isArray(userData) && userData.length > 0 ? userData[0] : null;
+  if (!usuario) {
+    console.error('No se encontraron datos de usuario válidos.');
+    return;
+  }
+  const lineItems = items.map(item => ({
+    product_id: item.id,
+    quantity: item.quantity
+  }));
+
+  const pedido = {
+    customer_id: usuario.id,
+    set_paid: true,
+    line_items: lineItems
+  };
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(pedido)
+  };
+
+  console.log('Datos del pedido a enviar:', pedido);
+
+  try {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/pedido/crear`, requestOptions);
+
+    if (response.ok) {
+      console.log('Pedido enviado con éxito.');
+
+      // Vaciar el carrito después de enviar el pedido
+      this.setState({
+        items: [],
+        subtotal: 0
+      });
+    } else {
+      console.error('Error al enviar el pedido:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error al realizar la solicitud:', error);
+  }
+}
+
+
+
+
+
   render() {
     return (
-      <myContext.Provider value={{ state: this.state, productosDescargados: this.productosDescargados, agregarAlCarrito: this.agregarAlCarrito, eliminarDelCarrito: this.eliminarDelCarrito }}>
-      {this.props.children}
-    </myContext.Provider>
-    )
+      <myContext.Provider value={{
+        state: this.state,
+        productosDescargados: this.productosDescargados,
+        agregarAlCarrito: this.agregarAlCarrito,
+        eliminarDelCarrito: this.eliminarDelCarrito,
+        almacenarDatosUsuario: this.almacenarDatosUsuario,
+        enviarPedido: this.enviarPedido
+      }}>
+        {this.props.children}
+      </myContext.Provider>
+    );
   }
 }
