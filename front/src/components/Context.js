@@ -55,7 +55,7 @@ export class MyProvider extends Component {
     // Si no esta lo añade al carrito
     const formattedProduct = {
       id: producto.id,
-      name: producto.title,
+      name: producto.name,
       price: parseFloat(producto.price),
       image: producto.images[0].src,
       quantity: 1

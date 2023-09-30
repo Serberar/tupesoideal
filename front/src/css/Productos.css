@@ -119,3 +119,31 @@
 .botonFinalizarCompra:hover {
   background-color: #385236;
 }
+
+.ordenarProductos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+
+.botonMenor,
+.botonMayor {
+  background-color: #618a5d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin: 0 10px; 
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 5px; 
+  transition: background-color 0.3s; 
+  margin-bottom: 10px;
+}
+
+
+.botonMenor:hover,
+.botonMayor:hover {
+  background-color: #385236;
+}

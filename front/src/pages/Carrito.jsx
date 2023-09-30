@@ -1,10 +1,42 @@
 import React, { useContext } from 'react';
 import { myContext } from '../components/Context';
-import '../css/Carrito.css'
+import '../css/Carrito.css';
 
 const Carrito = () => {
-
   const { state, eliminarDelCarrito, enviarPedido } = useContext(myContext);
+
+  const handleIncrement = (itemId) => {
+    const updatedItems = state.items.map((item) => {
+      if (item.id === itemId) {
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        };
+      }
+      return item;
+    });
+
+    // Actualiza el contexto con la nueva cantidad
+    state.agregarAlCarrito(updatedItems);
+  };
+
+  const handleDecrement = (itemId) => {
+    const updatedItems = state.items.map((item) => {
+      if (item.id === itemId) {
+        // Asegúrate de que la cantidad nunca sea menor que 0
+        const newQuantity = item.quantity - 1 >= 0 ? item.quantity - 1 : 0;
+
+        return {
+          ...item,
+          quantity: newQuantity,
+        };
+      }
+      return item;
+    });
+
+    // Actualiza el contexto con la nueva cantidad
+    state.agregarAlCarrito(updatedItems);
+  };
 
   return (
     <div className='carrito'>
@@ -16,7 +48,21 @@ const Carrito = () => {
               <img src={item.image} alt={item.name} className='carritoImagen' />
               <div className='carritoInfo'>
                 <span>{item.name}</span>
-                <span>Cantidad: {item.quantity}</span>
+                <div className='cantidadContenedor'>
+                  <button
+                    className='cantidadBoton'
+                    onClick={() => handleDecrement(item.id)}
+                  >
+                    -
+                  </button>
+                  <span>Cantidad: {item.quantity}</span>
+                  <button
+                    className='cantidadBoton'
+                    onClick={() => handleIncrement(item.id)}
+                  >
+                    +
+                  </button>
+                </div>
                 <span>Precio: {item.price * item.quantity}€</span>
               </div>
             </div>

@@ -27,3 +27,55 @@
     color: #385236;
   }
   
+  /* Estilos para el carrito de compras */
+.carritoNav {
+  position: fixed;
+  margin: 10px;
+  padding: 10px;
+  width: 380px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.carritoImagenNav {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+/* Estilos para la lista de elementos en el carrito */
+.ulCarritoNav {
+  list-style: none;
+  padding: 0;
+}
+
+.spanCarritoNav{
+  margin: 2px;
+  text-align: center;
+}
+/* Estilos para los elementos individuales en el carrito */
+.ulCarritoNav li {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.botonVerCesta {
+  width: 100%;
+  background-color: #618a5d;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.botonVerCesta:hover {
+  background-color: #385236;
+}
+
+
