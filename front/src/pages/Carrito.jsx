@@ -3,7 +3,7 @@ import { myContext } from '../components/Context';
 import '../css/Carrito.css';
 
 const Carrito = () => {
-  const { state, eliminarDelCarrito, enviarPedido } = useContext(myContext);
+  const { state, eliminarDelCarrito, enviarPedido, actualizarCantidadEnCarrito } = useContext(myContext);
 
   const handleIncrement = (itemId) => {
     const updatedItems = state.items.map((item) => {
@@ -16,8 +16,8 @@ const Carrito = () => {
       return item;
     });
 
-    // Actualiza el contexto con la nueva cantidad
-    state.agregarAlCarrito(updatedItems);
+    // Llama a la función para actualizar la cantidad en el contexto
+    actualizarCantidadEnCarrito(itemId, updatedItems.find(item => item.id === itemId).quantity);
   };
 
   const handleDecrement = (itemId) => {
@@ -34,8 +34,8 @@ const Carrito = () => {
       return item;
     });
 
-    // Actualiza el contexto con la nueva cantidad
-    state.agregarAlCarrito(updatedItems);
+    // Llama a la función para actualizar la cantidad en el contexto
+    actualizarCantidadEnCarrito(itemId, updatedItems.find(item => item.id === itemId).quantity);
   };
 
   return (

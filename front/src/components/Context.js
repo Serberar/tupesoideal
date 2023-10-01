@@ -153,6 +153,24 @@ enviarPedido = async () => {
   }
 }
 
+//actuializa el numer de items del carrito
+actualizarCantidadEnCarrito = (itemId, newQuantity) => {
+  const updatedItems = this.state.items.map((item) => {
+    if (item.id === itemId) {
+      return {
+        ...item,
+        quantity: newQuantity,
+      };
+    }
+    return item;
+  });
+
+  this.setState({
+    items: updatedItems,
+    subtotal: this.calcularSubtotal(updatedItems),
+  });
+}
+
 
 
 
@@ -165,10 +183,12 @@ enviarPedido = async () => {
         agregarAlCarrito: this.agregarAlCarrito,
         eliminarDelCarrito: this.eliminarDelCarrito,
         almacenarDatosUsuario: this.almacenarDatosUsuario,
-        enviarPedido: this.enviarPedido
+        enviarPedido: this.enviarPedido,
+        actualizarCantidadEnCarrito: this.actualizarCantidadEnCarrito, 
       }}>
         {this.props.children}
       </myContext.Provider>
+      
     );
   }
 }

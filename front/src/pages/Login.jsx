@@ -48,9 +48,9 @@ const Login = () => {
             </div>
   
             <input className="loginBoton" type="submit" value="Entra" />
-        <div className='enlaceRegistro'>No estás registrado? registraté aquí 
+        <div className='enlaceRegistro'>No estás registrado? registrate aquí 
         <Link to="/registro">
-  <button className='botonRegistroLogin'>Registraté</button>
+  <button className='botonRegistroLogin'>Registrate</button>
 </Link>
 </div>
         </form>

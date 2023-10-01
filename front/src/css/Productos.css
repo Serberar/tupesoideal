@@ -25,6 +25,7 @@
   }
   
   .imagenProducto {
+    width: 100%;
     max-width: 300px;
     margin-bottom: 15px;
   }
@@ -106,7 +107,7 @@
 }
 
 /* Estilos para el botón "Finalizar compra" */
-.botonFinalizarCompraCarritoProducto {
+.botonVerCestaProducto {
   width: 100%;
   background-color: #618a5d;
   color: #fff;
@@ -116,7 +117,7 @@
   font-size: 16px;
 }
 
-.botonFinalizarCompra:hover {
+.botonVerCestaProducto:hover {
   background-color: #385236;
 }
 

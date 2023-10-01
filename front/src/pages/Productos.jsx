@@ -1,48 +1,67 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { myContext } from '../components/Context';
 import '../css/Productos.css';
 
 const Productos = () => {
   const { state, agregarAlCarrito } = useContext(myContext);
-  const [productosOrdenados, setProductosOrdenados] = useState([]);
-  const [ordenAscendente, setOrdenAscendente] = useState(true);
+  const [verCarrito, setVerCarrito] = useState(false);
 
-  const ordenarProductos = (ascendente) => {
-    const productosOrdenados = [...state.Productos].sort((a, b) => {
-      return ascendente ? a.price - b.price : b.price - a.price;
-    });
-    setProductosOrdenados(productosOrdenados);
-    setOrdenAscendente(ascendente);
+
+ 
+  const temporizadorVerCarrito = () => {
+    setVerCarrito(true);
+
+    
+    setTimeout(() => {
+      setVerCarrito(false);
+    }, 2000);
   };
 
-  useEffect(() => {
-
-    ordenarProductos(ordenAscendente);
-  }, [state.Productos]); 
-
   return (
-    <div className="containerProductos">
-      <h1 className="h1Productos">Bonos</h1>
-      <div className="ordenarProductos">
-        Ordenar por precio
-        <button className="botonMenor" onClick={() => ordenarProductos(true)}>Menor</button>
-        <button className="botonMayor" onClick={() => ordenarProductos(false)}>Mayor</button>
-      </div>
-
-      {productosOrdenados.map((producto) => (
-        <div className="divProducto" key={producto.id}>
-          <h3 className="tituloProducto">{producto.title}</h3>
-          <img className="imagenProducto" src={producto.images[0].src} alt={producto.title} />
-          <div
-            className="descripcionProducto"
-            dangerouslySetInnerHTML={{ __html: producto.description }}
-          />
-          <div className="precioProducto">
-            <p className="Productos">Este plan tiene un precio de: {producto.price}€</p>
-          </div>
-          <button className='botonCarrito' onClick={() => agregarAlCarrito(producto)}>Añadir al carrito</button>
+    <div>
+      {verCarrito && (
+        <div className='carritoProducto'>
+          <h2>Carrito de compras</h2>
+          <ul className='ulCarritoProducto'>
+            {state.items.map((item) => (
+              <li key={item.id}>
+                <img src={item.image} alt={item.name} className='carritoImagenProducto' />
+                <span className='spanCarritoProducto'>{item.name}</span>
+                <span className='spanCarritoProducto'>Cantidad: {item.quantity}</span>
+                <span className='spanCarritoProducto'>Precio: {item.price * item.quantity}€</span>
+              </li>
+            ))}
+          </ul>
+          <p>Total: {state.subtotal}€</p>
+          <button className='botonVerCestaProducto'>Ver cesta</button>
         </div>
-      ))}
+      )}
+
+      <div className="containerProductos">
+        <h1 className="h1Productos">Bonos</h1>
+        {state.Productos.map((producto) => (
+          <div className="divProducto" key={producto.id}>
+            <h3 className="tituloProducto">{producto.title}</h3>
+            <img className="imagenProducto" src={producto.images[0].src} alt={producto.title} />
+            <div
+              className="descripcionProducto"
+              dangerouslySetInnerHTML={{ __html: producto.description }}
+            />
+            <div className="precioProducto">
+              <p className="Productos">Este plan tiene un precio de: {producto.price}€</p>
+            </div>
+            <button
+              className='botonCarrito'
+              onClick={() => {
+                agregarAlCarrito(producto);
+                temporizadorVerCarrito(); 
+              }}
+            >
+              Añadir al carrito
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
