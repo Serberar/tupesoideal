@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { myContext } from '../components/Context';
+import { Link } from 'react-router-dom';
 import '../css/Productos.css';
 
 const Productos = () => {
@@ -33,7 +34,9 @@ const Productos = () => {
             ))}
           </ul>
           <p>Total: {state.subtotal}€</p>
-          <button className='botonVerCestaProducto'>Ver cesta</button>
+          <Link to="/carrito">
+  <button className='botonVerCestaProducto'>Ver cesta</button>
+</Link>
         </div>
       )}
 

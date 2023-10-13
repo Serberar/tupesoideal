@@ -1,17 +1,5 @@
 const axios = require('axios');
 
-function WPconexion() {
-  const WordPress = axios.create({
-    baseURL: process.env.URL_WP,
-    auth: {
-      username: process.env.WP_USER,
-      password: process.env.WP_PASS,
-    }
-  });
-
-  return WordPress;
-}
-
 function WCconexion() {
   const WooCommerce = axios.create({
     baseURL: process.env.URL_WC,
@@ -24,4 +12,4 @@ function WCconexion() {
   return WooCommerce;
 }
 
-module.exports = {WPconexion, WCconexion};
+module.exports = {WCconexion};

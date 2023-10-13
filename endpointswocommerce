@@ -1,0 +1,31 @@
+    Productos: 
+        Obtener todos los productos:  GET /wp-json/wc/v3/products
+        Obtener un producto específico:  GET /wp-json/wc/v3/products/{id}
+        Crear un nuevo producto:  POST /wp-json/wc/v3/products
+        Actualizar un producto existente:  PUT /wp-json/wc/v3/products/{id}
+        Eliminar un producto:  DELETE /wp-json/wc/v3/products/{id}
+
+    Clientes: 
+        Obtener todos los clientes:  GET /wp-json/wc/v3/customers
+        Obtener un cliente específico:  GET /wp-json/wc/v3/customers/{id}
+        Crear un nuevo cliente:  POST /wp-json/wc/v3/customers
+        Actualizar un cliente existente:  PUT /wp-json/wc/v3/customers/{id}
+        Eliminar un cliente:  DELETE /wp-json/wc/v3/customers/{id}
+
+    Pedidos: 
+        Obtener todos los pedidos:  GET /wp-json/wc/v3/orders
+        Obtener un pedido específico:  GET /wp-json/wc/v3/orders/{id}
+        Crear un nuevo pedido:  POST /wp-json/wc/v3/orders
+        Actualizar un pedido existente:  PUT /wp-json/wc/v3/orders/{id}
+        Eliminar un pedido:  DELETE /wp-json/wc/v3/orders/{id}
+
+    Categorías: 
+        Obtener todas las categorías:  GET /wp-json/wc/v3/products/categories
+        Obtener una categoría específica:  GET /wp-json/wc/v3/products/categories/{id}
+        Crear una nueva categoría: POST /wp-json/wc/v3/products/categories
+        Actualizar una categoría existente:  PUT /wp-json/wc/v3/products/categories/{id}
+        Eliminar una categoría:  DELETE /wp-json/wc/v3/products/categories/{id}
+
+    Métodos de pago: 
+        Obtener todos los métodos de pago: GET /wp-json/wc/v3/payment_gateways
+        Obtener un método de pago específico:  GET /wp-json/wc/v3/payment_gateways/{id}

@@ -10,13 +10,17 @@ dotenv.config();
 const PORT = 5000;
 const app = express();
 
-
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, 
+  }));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 app.use('/producto', productoRoutes);
 app.use('/user', userRoutes);
 app.use('/pedido', pedidoRoutes);
+
 
 app.listen(PORT, () => console.log(`Listening on: http://localhost:${PORT}`));

@@ -5,39 +5,26 @@ import '../css/Carrito.css';
 const Carrito = () => {
   const { state, eliminarDelCarrito, enviarPedido, actualizarCantidadEnCarrito } = useContext(myContext);
 
-  const handleIncrement = (itemId) => {
+  const aumentarCantidad = (itemId) => {
     const updatedItems = state.items.map((item) => {
       if (item.id === itemId) {
-        return {
-          ...item,
-          quantity: item.quantity + 1,
-        };
+        return { ...item, quantity: item.quantity + 1 };
       }
       return item;
     });
+    actualizarCantidadEnCarrito(updatedItems);
+  }
 
-    // Llama a la función para actualizar la cantidad en el contexto
-    actualizarCantidadEnCarrito(itemId, updatedItems.find(item => item.id === itemId).quantity);
-  };
-
-  const handleDecrement = (itemId) => {
+  const reducirCantidad = (itemId) => {
     const updatedItems = state.items.map((item) => {
-      if (item.id === itemId) {
-        // Asegúrate de que la cantidad nunca sea menor que 0
-        const newQuantity = item.quantity - 1 >= 0 ? item.quantity - 1 : 0;
-
-        return {
-          ...item,
-          quantity: newQuantity,
-        };
+      if (item.id === itemId && item.quantity > 1) {
+        return { ...item, quantity: item.quantity - 1 };
       }
       return item;
     });
-
-    // Llama a la función para actualizar la cantidad en el contexto
-    actualizarCantidadEnCarrito(itemId, updatedItems.find(item => item.id === itemId).quantity);
-  };
-
+    actualizarCantidadEnCarrito(updatedItems);
+  }
+  
   return (
     <div className='carrito'>
       <h2>Carrito de compras</h2>
@@ -51,14 +38,14 @@ const Carrito = () => {
                 <div className='cantidadContenedor'>
                   <button
                     className='cantidadBoton'
-                    onClick={() => handleDecrement(item.id)}
+                    onClick={() => reducirCantidad(item.id)}
                   >
                     -
                   </button>
                   <span>Cantidad: {item.quantity}</span>
                   <button
                     className='cantidadBoton'
-                    onClick={() => handleIncrement(item.id)}
+                    onClick={() => aumentarCantidad(item.id)}
                   >
                     +
                   </button>

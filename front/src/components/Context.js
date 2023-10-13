@@ -22,7 +22,6 @@ export class MyProvider extends Component {
   productosDescargados = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/producto`);
-      console.log('Productos descargados:', response.data);
   
       this.setState({
         Productos: response.data
@@ -57,7 +56,7 @@ export class MyProvider extends Component {
       id: producto.id,
       name: producto.name,
       price: parseFloat(producto.price),
-      image: producto.images[0].src,
+      image: producto && producto.images && producto.images[0].src,
       quantity: 1
     }
     const newState = {...this.state};
@@ -100,11 +99,12 @@ export class MyProvider extends Component {
   round = (value, decimals) => {
     return Number( Math.round(value+'e'+decimals)+'e-'+decimals );
   }
-
-  // Almacena los datos del usuario
-almacenarDatosUsuario = (datosUsuario) => {
-  this.setState({ userData: datosUsuario });
-}
+  //almacena los datos en userData
+  almacenarDatosUsuario = (datosUsuario) => {
+    this.setState({ userData: datosUsuario });
+    console.log('Datos del usuario almacenados:', datosUsuario); // Agrega esta línea
+  }
+  
 
 //envia los datos del pedido
 enviarPedido = async () => {
@@ -152,28 +152,17 @@ enviarPedido = async () => {
     console.error('Error al realizar la solicitud:', error);
   }
 }
-
-//actuializa el numer de items del carrito
-actualizarCantidadEnCarrito = (itemId, newQuantity) => {
-  const updatedItems = this.state.items.map((item) => {
-    if (item.id === itemId) {
-      return {
-        ...item,
-        quantity: newQuantity,
-      };
-    }
-    return item;
-  });
-
-  this.setState({
-    items: updatedItems,
-    subtotal: this.calcularSubtotal(updatedItems),
-  });
+    
+actualizarCantidadEnCarrito = (updatedItems) => {
+  if (this.state) {
+    this.setState({
+      items: updatedItems
+    }, () => {
+      const subtotal = this.calcularSubtotal();
+      this.setState({ subtotal });
+    });
+  }
 }
-
-
-
-
 
   render() {
     return (

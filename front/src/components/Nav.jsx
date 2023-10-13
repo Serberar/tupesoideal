@@ -6,7 +6,6 @@ import '../css/Nav.css';
 const Enlaces = () => {
   const { state } = useContext(myContext);
   const { userData } = state;
-
   const usuario = Array.isArray(userData) && userData.length > 0 ? userData[0] : null;
 
   // Crear un objeto para agrupar los productos por su ID y calcular la cantidad total
@@ -34,7 +33,7 @@ const Enlaces = () => {
           </li>
           {usuario ? (
             <li>
-              <span>Bienvenido, {usuario.name}</span>
+              <span>Bienvenido, {usuario.first_name}</span>
             </li>
           ) : (
             <li>
