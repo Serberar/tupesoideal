@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../css/Registro.css';
 
 const Registro = () => {
+
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -11,37 +12,39 @@ const Registro = () => {
     last_name: '',
   });
 
-  const [mensaje, setMensaje] = useState(null);
-
-  const MensajeResultado = (text) => {
-    setMensaje({ text });
-    setTimeout(() => {
-      setMensaje(null);
-    }, 2000);
-  };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevData) => {
+      const updatedData = { ...prevData, [name]: value };
+
+      // calcular username
+      if (name === 'first_name' || name === 'last_name') {
+        const fullName = updatedData.first_name + ' ' + updatedData.last_name;
+        updatedData.username = fullName;
+      }
+  
+      return updatedData;
+    });
   };
 
   const registrarUsuario = async (e) => {
-    e.preventDefault();
-
+    e.preventDefault(); 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/registro`, formData);
-      console.log('Respuesta del servidor:', response.data);
-      MensajeResultado('Usuario registrado correctamente');
-      setFormData({
-        username: '',
-        password: '',
-        email: '',
-        first_name: '',
-        last_name: '',
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API}/customers`,
+        formData, 
+        {
+          auth: {
+            username: process.env.REACT_APP_USER,
+            password: process.env.REACT_APP_PASSWORD,
+          },
+        }
+      );
+      console.log('Respuesta exitosa:', response.data);
+
     } catch (error) {
-      console.error('Error al enviar el formulario:', error);
-      MensajeResultado('Error al registrar usuario');
+      console.error('Error al registrar el usuario:', error);
+
     }
   };
 
@@ -61,17 +64,16 @@ const Registro = () => {
           <label htmlFor="email">Correo electrónico</label>
           <input className='registroInput' type="text" name="email" value={formData.email} onChange={handleChange} />
         </div>
-        <div className="registrocampo">
+        {/* <div className="registrocampo">
           <label htmlFor="username">Nombre de usuario</label>
           <input className='registroInput' type="text" name="username" value={formData.username} onChange={handleChange} />
-        </div>
+        </div> */}
         <div className="registrocampo">
           <label htmlFor="password">Contraseña</label>
           <input className='registroInput' type="password" name="password" value={formData.password} onChange={handleChange} />
         </div>
         <input className="registroBoton" type="submit" value="Registro" />
       </form>
-      <div>{mensaje && mensaje.text}</div>
     </div>
   );
 };

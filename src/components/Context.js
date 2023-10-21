@@ -14,22 +14,36 @@ export class MyProvider extends Component {
   }
 
    // Llama a productosDescargados automáticamente al cargar la página
-  async componentDidMount() {
+   async componentDidMount() {
+    const userDataFromLocalStorage = localStorage.getItem('userData');
+    if (userDataFromLocalStorage) {
+      const userData = JSON.parse(userDataFromLocalStorage);
+      this.setState({ userData });
+    }
     await this.productosDescargados();
   }
+  
 
   // Descargar la lista de productos
-  productosDescargados = async () => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/producto`);
-  
+  productosDescargados = () => {
+    axios({
+      method: 'get',
+      url: `${process.env.REACT_APP_API}/products`,
+      auth: {
+        username: process.env.REACT_APP_USER,
+        password: process.env.REACT_APP_PASSWORD,
+      }
+    })
+    .then(response => {
       this.setState({
         Productos: response.data
       });
-    } catch (error) {
+    })
+    .catch(error => {
       console.error('Error al realizar la solicitud:', error);
-    }
+    });
   };
+  
 
   // Añadir producto al carrito
   agregarAlCarrito = (producto) => {
@@ -101,12 +115,12 @@ export class MyProvider extends Component {
   }
   //almacena los datos en userData
   almacenarDatosUsuario = (datosUsuario) => {
+    localStorage.setItem('userData', JSON.stringify(datosUsuario));
     this.setState({ userData: datosUsuario });
-    console.log('Datos del usuario almacenados:', datosUsuario); // Agrega esta línea
   }
   
-
 //envia los datos del pedido
+
 enviarPedido = async () => {
   const { userData, items } = this.state;
   const usuario = Array.isArray(userData) && userData.length > 0 ? userData[0] : null;
@@ -124,20 +138,25 @@ enviarPedido = async () => {
     set_paid: true,
     line_items: lineItems
   };
-  const requestOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(pedido)
-  };
 
   console.log('Datos del pedido a enviar:', pedido);
 
   try {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/pedido/crear`, requestOptions);
+    const response = await axios.post(
+      `${process.env.REACT_APP_API}/orders`,
+      pedido,
+      {
+        auth: {
+          username: process.env.REACT_APP_USER,
+          password: process.env.REACT_APP_PASSWORD,
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
 
-    if (response.ok) {
+    if (response.status === 201) {
       console.log('Pedido enviado con éxito.');
 
       // Vaciar el carrito después de enviar el pedido
@@ -152,6 +171,7 @@ enviarPedido = async () => {
     console.error('Error al realizar la solicitud:', error);
   }
 }
+
     
 actualizarCantidadEnCarrito = (updatedItems) => {
   if (this.state) {

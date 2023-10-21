@@ -4,9 +4,15 @@ import { myContext } from '../components/Context';
 import '../css/Nav.css';
 
 const Enlaces = () => {
-  const { state } = useContext(myContext);
+  const { state, almacenarDatosUsuario } = useContext(myContext); 
   const { userData } = state;
   const usuario = Array.isArray(userData) && userData.length > 0 ? userData[0] : null;
+
+
+  const cerrarSesion = () => {
+    almacenarDatosUsuario(null);
+    localStorage.removeItem('userData');
+  };
 
   // Crear un objeto para agrupar los productos por su ID y calcular la cantidad total
   const groupedItems = state.items.reduce((grouped, item) => {
@@ -20,7 +26,6 @@ const Enlaces = () => {
 
   const groupedItemsArray = Object.values(groupedItems);
   const totalQuantity = groupedItemsArray.reduce((total, item) => total + item.totalQuantity, 0);
-
   return (
     <div className='nav-div'>
       <nav>
@@ -33,7 +38,7 @@ const Enlaces = () => {
           </li>
           {usuario ? (
             <li>
-              <span>Bienvenido, {usuario.first_name}</span>
+              <span>Bienvenido, {usuario.name}</span>
             </li>
           ) : (
             <li>
@@ -42,13 +47,19 @@ const Enlaces = () => {
           )}
           <li>
             {totalQuantity > 0 && (
-              <NavLink to="/carrito">Carrito ({totalQuantity})</NavLink>
-            )}
-          </li>
-        </ul>
-      </nav>
-    </div>
-  );
-}
-
-export default Enlaces;
+             <NavLink to="/carrito">Carrito ({totalQuantity})</NavLink>
+             )}
+           </li>
+           {usuario && (
+             <li>
+               <button onClick={cerrarSesion}>Cerrar Sesión</button>
+             </li>
+           )}
+         </ul>
+       </nav>
+     </div>
+   );
+ }
+ 
+ export default Enlaces;
+ 

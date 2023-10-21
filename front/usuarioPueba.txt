@@ -1,2 +1,0 @@
-Respuesta del servidor: 
-Object { id: 19, username: "prueba", name: "usuario de prueba", first_name: "usuario", last_name: "de prueba", email: "sergioberara@gmail.com", url: "", description: "", link: "http://tupesoideal.es/back/author/prueba/", locale: "es_ES", … }
