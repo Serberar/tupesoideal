@@ -4,15 +4,17 @@ import { myContext } from '../components/Context';
 import '../css/Nav.css';
 
 const Enlaces = () => {
-  const { state, almacenarDatosUsuario } = useContext(myContext); 
+  const { state, almacenarDatosUsuario, actualizarCantidadEnCarrito } = useContext(myContext); 
   const { userData } = state;
   const usuario = Array.isArray(userData) && userData.length > 0 ? userData[0] : null;
 
-
-  const cerrarSesion = () => {
-    almacenarDatosUsuario(null);
-    localStorage.removeItem('userData');
-  };
+    const cerrarSesion = () => {
+      localStorage.removeItem('userData');
+      localStorage.removeItem('carrito');
+     almacenarDatosUsuario(null); 
+      actualizarCantidadEnCarrito([]);
+    };
+  
 
   // Crear un objeto para agrupar los productos por su ID y calcular la cantidad total
   const groupedItems = state.items.reduce((grouped, item) => {

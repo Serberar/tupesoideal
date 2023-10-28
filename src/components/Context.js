@@ -20,6 +20,11 @@ export class MyProvider extends Component {
       const userData = JSON.parse(userDataFromLocalStorage);
       this.setState({ userData });
     }
+    const carritoFromLocalStorage = localStorage.getItem('carrito');
+    if (carritoFromLocalStorage) {
+      const carrito = JSON.parse(carritoFromLocalStorage);
+      this.setState({ items: carrito });
+    }
     await this.productosDescargados();
   }
   
@@ -62,6 +67,7 @@ export class MyProvider extends Component {
 
         newState.subtotal = this.calcularSubtotal();
         this.setState(newState);
+        localStorage.setItem('carrito', JSON.stringify(this.state.items));
         return;
     }
 
@@ -77,24 +83,26 @@ export class MyProvider extends Component {
     newState.items.push(formattedProduct);
     newState.subtotal = this.calcularSubtotal();
     this.setState(newState);
+    localStorage.setItem('carrito', JSON.stringify(this.state.items));
   }
 
-  // Eliminar productos del carrito
   eliminarDelCarrito = (id) => {
-    const updatedItems = this.state.items.filter( item => item.id !== id );
+    const updatedItems = this.state.items.filter(item => item.id !== id);
     let subtotal = 0;
-
+  
     if (updatedItems.length > 0) {
       updatedItems.forEach(item => {
-        subtotal = subtotal + ( item.price * item.quantity );
+        subtotal = subtotal + (item.price * item.quantity);
         subtotal = this.round(subtotal, 2);
       });
     }
-
+  
+    localStorage.setItem('carrito', JSON.stringify(updatedItems));
+  
     this.setState({
       items: updatedItems,
       subtotal: subtotal
-    })
+    });
   }
 
   // Calcula el subtotal
@@ -174,14 +182,13 @@ enviarPedido = async () => {
 
     
 actualizarCantidadEnCarrito = (updatedItems) => {
-  if (this.state) {
     this.setState({
       items: updatedItems
     }, () => {
       const subtotal = this.calcularSubtotal();
       this.setState({ subtotal });
+      localStorage.setItem('carrito', JSON.stringify(this.state.items));
     });
-  }
 }
 
   render() {
