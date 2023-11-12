@@ -4,6 +4,8 @@ import Productos from '../pages/Productos';
 import Carrito from '../pages/Carrito';
 import Registro from '../pages/Registro';
 import Login from '../pages/Login';
+import Cliente from '../pages/AreaCliente';
+import Autenticar from '../pages/Autenticar'
 
 function Path() {
 
@@ -15,6 +17,8 @@ function Path() {
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/cliente" element={<Cliente />} />
+        <Route path="/autenticar" element={<Autenticar />} />
       </Routes>
     </div>
   );

@@ -13,7 +13,7 @@ export class MyProvider extends Component {
     userData: null,
   }
 
-   // Llama a productosDescargados automáticamente al cargar la página
+   // Descarga los productos y comprueba localStorage automáticamente al cargar la página
    async componentDidMount() {
     const userDataFromLocalStorage = localStorage.getItem('userData');
     if (userDataFromLocalStorage) {

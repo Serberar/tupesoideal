@@ -38,6 +38,11 @@ const Enlaces = () => {
           <li>
             <NavLink to="/productos">Productos</NavLink>
           </li>
+          {usuario && (
+            <li>
+               <NavLink to="/cliente">Área personal</NavLink>
+            </li>
+          )}
           {usuario ? (
             <li>
               <span>Bienvenido, {usuario.name}</span>
