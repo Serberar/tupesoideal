@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { myContext } from '../components/Context';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const AreaCliente = () => {
   const { state } = useContext(myContext);
@@ -73,6 +74,7 @@ const AreaCliente = () => {
           </ul>
         </div>
       )}
+     <Link to="/autenticar">Ir a la página de autenticación</Link>
     </div>
   );
 };

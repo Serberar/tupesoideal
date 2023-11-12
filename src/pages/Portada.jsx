@@ -4,7 +4,11 @@ import '../css/Portada.css'
 const Portada = () => {
   return (
     <div>
-     Portada
+      <center>
+  <h1>página en construcción</h1>
+
+Estamos trabajando en mejorar nuestro sitio. ¡Vuelve pronto!
+</center>
     </div>
   );
 };
