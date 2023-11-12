@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { myContext } from '../components/Context';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 const AreaCliente = () => {
   const { state } = useContext(myContext);
@@ -23,11 +22,46 @@ const AreaCliente = () => {
     }
   };
 
+  const descargarArchivo = (url) => {
+    const username = process.env.REACT_APP_USER;
+    const password = process.env.REACT_APP_PASSWORD;
+
+    const headers = new Headers({
+      'Authorization': 'Basic ' + btoa(`${username}:${password}`),
+      'Content-Type': 'application/json',
+    });
+
+    fetch(url, {
+      method: 'GET',
+      headers: headers,
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Error en la respuesta: ${response.status} ${response.statusText}`);
+        }
+
+        const contentType = response.headers.get('content-type');
+        return response.blob().then(blob => ({ contentType, blob }));
+      })
+      .then(({ contentType, blob }) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `archivo.${contentType.split('/')[1] || 'pdf'}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      })
+      .catch(error => {
+        console.error('Error en la solicitud:', error);
+      });
+  };
+
   useEffect(() => {
     datosPrivados();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usuario]);
-  
 
   console.log(privados);
 
@@ -43,13 +77,10 @@ const AreaCliente = () => {
                 <strong>{archivo.titulo}</strong>
                 <br />
                 {archivo.contenido}
-
-                <br />
-                Nombre del Archivo: {archivo.nombre_archivo}
-                <br />
-                <a href={archivo.enlace_descarga} target="_blank" rel="noreferrer">
+                <br /><br />
+                <button onClick={() => descargarArchivo(archivo.enlace_descarga)}>
                   Descargar Archivo
-                </a>
+                </button>
                 <br /><br />
                 Fecha de Creación: {archivo.fecha_creacion}
               </li>
@@ -74,7 +105,6 @@ const AreaCliente = () => {
           </ul>
         </div>
       )}
-     <Link to="/autenticar">Ir a la página de autenticación</Link>
     </div>
   );
 };
