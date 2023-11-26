@@ -99,6 +99,7 @@ const Login = () => {
           </Link>
         </div>
       </form>
+          {/* <div>{usuario && <span>Bienvenido, {usuario.name}</span>}</div> */}
     </div>  
   );
 }

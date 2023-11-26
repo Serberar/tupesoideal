@@ -63,7 +63,9 @@ const AreaCliente = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usuario]);
 
-  console.log(privados);
+  const renderizarHTML = (htmlString) => {
+    return { __html: htmlString };
+  };
 
   return (
     <div>
@@ -76,7 +78,7 @@ const AreaCliente = () => {
               <li key={archivo.ID}>
                 <strong>{archivo.titulo}</strong>
                 <br />
-                {archivo.contenido}
+                <div dangerouslySetInnerHTML={renderizarHTML(archivo.contenido)} />
                 <br /><br />
                 <button onClick={() => descargarArchivo(archivo.enlace_descarga)}>
                   Descargar Archivo
@@ -97,7 +99,7 @@ const AreaCliente = () => {
               <li key={post.ID}>
                 <strong>{post.titulo}</strong>
                 <br />
-                {post.contenido}
+                <div dangerouslySetInnerHTML={renderizarHTML(post.contenido)} />
                 <br /><br />
                 Fecha de Creación: {post.fecha_creacion}
               </li>

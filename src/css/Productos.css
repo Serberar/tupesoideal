@@ -148,3 +148,9 @@
 .botonMayor:hover {
   background-color: #385236;
 }
+
+@media screen and (max-width: 750px) {
+  .carritoProducto {
+    display: none; 
+  }
+}
