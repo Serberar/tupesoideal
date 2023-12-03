@@ -1,90 +1,149 @@
-/* ServiceDescription.css */
+/*PORTADA*/
+.portada{
+  background-color: rgb(242, 250, 242);
+  padding-top: 100px;
+}
+/*HEADER*/
+.tituloHeader{
+  width: 100vw;
+  text-align: center;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 10vh;
+  padding-right: 10vh;
+}
 
-.service-description {
-  max-width: 800px;
-  margin: 0 auto;
+.textoHeader {
+  width: 50%;
+  flex: 1; 
+  padding-right: 20px; 
+}
+
+.textoHeader h3 {
+font-size: 27px;
+}
+
+.textoHeader p {
+  text-align: justify;
+  font-size: 24px;
+}
+
+.imagenHeader {
+  width: 50%;
+  text-align: right;
+  flex: 1; 
+}
+
+/*FUNCIONA*/
+.funciona{
+  width: 100vw;
+  height: 300px;
+  background-color: rgb(123, 173, 128);
+  margin-top: -40px;
+  position: relative; 
+  z-index: 1; 
+  padding-top: 50px;
+  padding-left: 80px;
+  padding-right: 80px;
+  margin-bottom: 50px;
+}
+
+
+/*CONSULTAS*/
+.consultas {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 0 200px; 
+  margin-bottom: 50px;
+}
+
+.tituloConsultas {
+  text-align: center;
+}
+
+.razones {
+  width: calc(25% - 150px); 
+}
+
+.imgRazones {
+  width: 100%;
+}
+
+.tituloRazones {
+  text-align-last: center;
+}
+
+.textoRazones {
+  text-align: justify;
+}
+
+/*PARALLAX*/
+.parallax {
+  background-image: url('../../public/img/parallax.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-ºrepeat;
+  background-size: cover;
+  height: 400px;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  font-size: 24px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 50px;
+  padding-top: 50px;
+  padding-left: 80px;
+  padding-right: 80px;
+}
+
+/*ACORDEON*/
+
+
+
+
+/*FOOTER*/
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #f2f2f2;
   padding: 20px;
+  color: #333;
+  font-family: Arial, sans-serif;
+  margin-top: 50px;
 }
 
-.service-title {
-  font-size: 32px;
-  text-align: center;
-  margin-bottom: 20px;
+.footer-section {
+  margin-right: 30px;
 }
 
-.session-title {
-  font-size: 24px;
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.intro-text {
+.footer-section h4 {
   font-size: 18px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 5px;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  color: #777;
+}
+
+.footer p {
+  font-size: 14px;
+  margin-top: 10px;
   text-align: center;
-  margin-bottom: 40px;
+  color: #888;
 }
 
-.description-section h3,
-.include-section h3,
-.benefits-section h3,
-.closing-text {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.description-section p,
-.include-section li,
-.benefits-section li,
-.closing-text {
-  font-size: 16px;
-  line-height: 1.5;
-  margin-bottom: 20px;
-}
-
-.include-section ul,
-.benefits-section ul {
-  list-style-type: disc;
-  padding-left: 20px;
-}
-
-.closing-text {
-  text-align: center;
-}
-
-/* Media Query for Responsive Design */
-@media (max-width: 768px) {
-  .service-description {
-    padding: 10px;
-  }
-
-  .service-title {
-    font-size: 28px;
-    margin-bottom: 10px;
-  }
-
-  .session-title {
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
-
-  .intro-text {
-    font-size: 16px;
-    margin-bottom: 30px;
-  }
-
-  .description-section h3,
-  .include-section h3,
-  .benefits-section h3,
-  .closing-text {
-    font-size: 20px;
-    margin-bottom: 15px;
-  }
-
-  .description-section p,
-  .include-section li,
-  .benefits-section li,
-  .closing-text {
-    font-size: 14px;
-    margin-bottom: 15px;
-  }
-}
