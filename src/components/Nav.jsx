@@ -46,9 +46,9 @@ const Enlaces = () => {
           <li>
             <NavLink to="/" onClick={cerrarMenu}>Inicio</NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink to="/productos" onClick={cerrarMenu}>Productos</NavLink>
-          </li>
+          </li> */}
           {usuario && (
             <li>
               <NavLink to="/cliente" onClick={cerrarMenu}>Área personal</NavLink>
