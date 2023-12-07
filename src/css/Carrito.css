@@ -58,7 +58,7 @@ width: 60vw;
   }
   
   /* Estilos para el subtotal y el botón "Comprar" */
-  p {
+  .subtotalCarrito {
     font-size: 18px;
     text-align: right;
     margin-top: 20px;

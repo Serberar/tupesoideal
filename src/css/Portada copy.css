@@ -27,16 +27,6 @@
   flex: 1; 
 }
 
-.textoHeader h3 {
-font-size: 27px;
-}
-
-.textoHeader p {
-  text-align: justify;
-  font-size: 24px;
-  padding-bottom: 5vh;
-}
-
 @media screen and (max-width: 1300px) {
   .header {
     flex-direction: column; 
@@ -64,7 +54,15 @@ font-size: 27px;
   }
 }
 
+.textoHeader h3 {
+font-size: 27px;
+}
 
+.textoHeader p {
+  text-align: justify;
+  font-size: 24px;
+  padding-bottom: 5vh;
+}
 
 /*PARALLAX*/
 .parallax {
@@ -80,79 +78,6 @@ font-size: 27px;
   margin-bottom: 5vh;
   padding: 5vh;
 }
-
-/*PRODUCTOS*/
-.tituloProductos {
-  text-align: center;
-}
-.productos {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.divProductoIndex {
-  width: calc(33.33% - 20px); /* Ajusta el ancho de cada elemento según tus necesidades */
-  margin-bottom: 20px;
-  padding: 15px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  min-width: 30vh;
-}
-
-.tituloProductoIndex {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.imagenProductoIndex {
-  width: 100%;
-  height: auto;
-  margin-bottom: 10px;
-}
-
-.descripcionProductoIndex {
-  font-size: 14px;
-  margin-bottom: 10px;
-  text-align: left;
-}
-
-.precioProductoIndex {
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.botonCarrito {
-  padding: 8px 16px;
-  font-size: 14px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.botonCarrito:hover {
-  background-color: #0056b3;
-}
-
-/* Media query para pantallas pequeñas */
-@media screen and (max-width: 768px) {
-  .divProductoIndex {
-    width: calc(50% - 20px); /* Dos elementos por fila en pantallas pequeñas */
-  }
-
-  /* Centrar elemento cuando solo hay uno en la fila */
-  .divProductoIndex:nth-child(odd),
-  .divProductoIndex:nth-child(even) {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-
 
 /*CONSULTAS*/
 .consultas {
@@ -182,15 +107,6 @@ font-size: 27px;
 
 .textoRazones {
   text-align: justify;
-}
-
-@media screen and (max-width: 768px) {
-  /* Ajuste de los elementos para pantallas pequeñas */
-  .razones {
-    width: 100%; /* Ancho completo en pantallas pequeñas */
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 
 /*FUNCIONA*/

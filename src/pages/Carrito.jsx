@@ -57,7 +57,7 @@ const Carrito = () => {
           </li>
         ))}
       </ul>
-      <p>Subtotal: {state.subtotal}€</p>
+      <p className='subtotalCarrito'>Subtotal: {state.subtotal}€</p>
       <button onClick={() => enviarPedido()}>Comprar</button>
     </div>
   );

@@ -1,19 +1,9 @@
-import React, { useContext, useState } from 'react';
-import { myContext } from '../components/Context';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import '../css/Portada.css';
 
 const Portada = () => {
-  const { state, agregarAlCarrito } = useContext(myContext);
-  const [verCarrito, setVerCarrito] = useState(false);
-  const [elementoActivo, setElementoActivo] = useState(null);
 
-  const temporizadorVerCarrito = () => {
-    setVerCarrito(true);
-    setTimeout(() => {
-      setVerCarrito(false);
-    }, 3000); // Cambiar el tiempo de visualización del carrito según sea necesario
-  };
+  const [elementoActivo, setElementoActivo] = useState(null);
 
   const ControlCLickAcordeon = (index) => {
     setElementoActivo(elementoActivo === index ? null : index);
@@ -21,25 +11,6 @@ const Portada = () => {
 
   return (
     <div className='portada'>
-      {verCarrito && (
-        <div className='carritoProducto'>
-          <h2>Carrito de compras</h2>
-          <ul className='ulCarritoProducto'>
-            {state.items.map((item) => (
-              <li key={item.id}>
-                <img src={item.image} alt={item.name} className='carritoImagenProducto' />
-                <span className='spanCarritoProducto'>{item.name}</span>
-                <span className='spanCarritoProducto'>Cantidad: {item.quantity}</span>
-                <span className='spanCarritoProducto'>Precio: {item.price * item.quantity}€</span>
-              </li>
-            ))}
-          </ul>
-          <p>Total: {state.subtotal}€</p>
-          <Link to="/carrito">
-            <button className='botonVerCestaProducto'>Ver cesta</button>
-          </Link>
-        </div>
-      )}
 
       <div className='tituloHeader'>
         <h1>Consulta de nutrición online con expertos</h1>
@@ -59,32 +30,12 @@ const Portada = () => {
         </div>
       </div>
 
-      <div className='parallax'>
-          <h2 className="tituloProductos">Conoce nuestros servicios</h2>
-        <div className="productos">
-          {state.Productos.map((producto) => (
-            <div className="divProductoIndex" key={producto.id}>
-              <h3 className="tituloProductoIndex">{producto.title}</h3>
-              <img className="imagenProductoIndex" src={producto.images[0].src} alt={producto.title} />
-              <div
-                className="descripcionProductoIndex"
-                dangerouslySetInnerHTML={{ __html: producto.description }}
-              />
-              <div className="precioProductoIndex">
-                <p className="ProductosIndex">Este plan tiene un precio de: {producto.price}€</p>
-              </div>
-              <button
-                className='botonCarrito'
-                onClick={() => {
-                  agregarAlCarrito(producto);
-                  temporizadorVerCarrito();
-                }}
-              >
-                Añadir al carrito
-              </button>
-            </div>
-          ))}
-        </div>
+<div className='parallax'>
+        <h3>Seleccionamos lo mejor para ti</h3>
+        <ul>
+          <li>Además de realizar una entrevista individual contigo, nos aseguramos de revisar tu historia clínica para darte una dieta elaborada exclusivamente para ti</li>
+          <li>Cada sesión tendrás una dieta nueva elaborada acorde a tus necesidades</li>
+        </ul>
       </div>
 
 
@@ -117,27 +68,27 @@ const Portada = () => {
         <h4>¿Como funciona?</h4>
       </div>
 
-      <div className='acordeonDiv'>
-        <div className="acordeon">
-          <div className={`acordeonItem ${elementoActivo === 0 ? 'active' : ''}`}>
-            <div className="acordeonTitulo" onClick={() => ControlCLickAcordeon(0)}>Pregunta 1</div>
-            <div className={`acordeonContenido ${elementoActivo === 0 ? 'active' : ''}`}>
-              <p>Respuesta a la pregunta 1.</p>
-            </div>
-          </div>
-          <div className={`acordeonItem ${elementoActivo === 1 ? 'active' : ''}`}>
-            <div className="acordeonTitulo" onClick={() => ControlCLickAcordeon(1)}>Pregunta 2</div>
-            <div className={`acordeonContenido ${elementoActivo === 1 ? 'active' : ''}`}>
-              <p>Respuesta a la pregunta 2.</p>
-            </div>
-          </div>
-          <div className={`acordeonItem ${elementoActivo === 2 ? 'active' : ''}`}>
-            <div className="acordeonTitulo" onClick={() => ControlCLickAcordeon(2)}>Pregunta 3</div>
-            <div className={`acordeonContenido ${elementoActivo === 2 ? 'active' : ''}`}>
-              <p>Respuesta a la pregunta 3.</p>
-            </div>
+<div className='acordeonDiv'>
+      <div className="acordeon">
+        <div className={`acordeonItem ${elementoActivo === 0 ? 'active' : ''}`}>
+          <div className="acordeonTitulo" onClick={() => ControlCLickAcordeon(0)}>Pregunta 1</div>
+          <div className={`acordeonContenido ${elementoActivo === 0 ? 'active' : ''}`}>
+            <p>Respuesta a la pregunta 1.</p>
           </div>
         </div>
+        <div className={`acordeonItem ${elementoActivo === 1 ? 'active' : ''}`}>
+          <div className="acordeonTitulo" onClick={() => ControlCLickAcordeon(1)}>Pregunta 2</div>
+          <div className={`acordeonContenido ${elementoActivo === 1 ? 'active' : ''}`}>
+            <p>Respuesta a la pregunta 2.</p>
+          </div>
+        </div>
+        <div className={`acordeonItem ${elementoActivo === 2 ? 'active' : ''}`}>
+          <div className="acordeonTitulo" onClick={() => ControlCLickAcordeon(2)}>Pregunta 3</div>
+          <div className={`acordeonContenido ${elementoActivo === 2 ? 'active' : ''}`}>
+            <p>Respuesta a la pregunta 3.</p>
+          </div>
+        </div>
+      </div>
       </div>
 
       <div className='footer'>
