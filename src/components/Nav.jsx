@@ -54,11 +54,7 @@ const Enlaces = () => {
               <NavLink to="/cliente" onClick={cerrarMenu}>Área personal</NavLink>
             </li>
           )}
-          {usuario ? (
-            <li>
-              <NavLink to="/login" onClick={cerrarMenu}>Identifícate</NavLink>
-            </li>
-          ) : (
+          {!usuario && (
             <li>
               <NavLink to="/login" onClick={cerrarMenu}>Identifícate</NavLink>
             </li>

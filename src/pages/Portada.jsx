@@ -94,22 +94,22 @@ const Portada = () => {
         <div className='razones'>
           <img className='imgRazones' src='/img/icono1.jpg' alt="razón1" />
           <p className='tituloRazones'>Accesible y Rápido</p>
-          <div className='textoRazones'>Estés donde estés, puedes acceder a tu consulta online en cualquier momento y en cualquier lugar. Puedes unirte a la sesión con un ordenador o tablet </div>
+          <div className='textoRazones'>ELas consultas online ofrecen la comodidad de acceder a servicios de nutrición desde cualquier ubicación. Los usuarios pueden programar citas sin tener que desplazarse físicamente, lo que ahorra tiempo y esfuerzo. </div>
         </div>
         <div className='razones'>
           <img className='imgRazones' src='/img/icono1.jpg' alt="razón1" />
-          <p className='tituloRazones'>Accesible y Rápido</p>
-          <div className='textoRazones'>Estés donde estés, puedes acceder a tu consulta online en cualquier momento y en cualquier lugar. Puedes unirte a la sesión con un ordenador o tablet </div>
+          <p className='tituloRazones'>Flexibilidad de horarios</p>
+          <div className='textoRazones'>Las consultas en línea ofrecen horarios más flexibles, lo que permite a los usuarios elegir citas que se ajusten a sus agendas. Esto resulta beneficioso para personas con horarios ocupados o restricciones de tiempo. </div>
         </div>
         <div className='razones'>
           <img className='imgRazones' src='/img/icono1.jpg' alt="razón1" />
-          <p className='tituloRazones'>Accesible y Rápido</p>
-          <div className='textoRazones'>Estés donde estés, puedes acceder a tu consulta online en cualquier momento y en cualquier lugar. Puedes unirte a la sesión con un ordenador o tablet </div>
+          <p className='tituloRazones'>Seguimiento y registro digital</p>
+          <div className='textoRazones'>Las plataformas en línea pueden proporcionar herramientas para el seguimiento y registro digital de la dieta, el progreso y los objetivos. Esto facilita a los usuarios el acceso a su historial y les ayuda a mantenerse comprometidos con su plan alimenticio</div>
         </div>
         <div className='razones'>
           <img className='imgRazones' src='/img/icono1.jpg' alt="razón1" />
-          <p className='tituloRazones'>Accesible y Rápido</p>
-          <div className='textoRazones'>Estés donde estés, puedes acceder a tu consulta online en cualquier momento y en cualquier lugar. Puedes unirte a la sesión con un ordenador o tablet </div>
+          <p className='tituloRazones'>Comunicación continua</p>
+          <div className='textoRazones'>Las consultas en línea a menudo brindan una vía de comunicación continua entre el profesional de la salud y el usuario. Esto permite resolver dudas, recibir consejos y obtener apoyo adicional entre citas programadas</div>
         </div>
       </div>
 

@@ -178,6 +178,7 @@ font-size: 27px;
 
 .tituloRazones {
   text-align-last: center;
+  font-weight: bold;
 }
 
 .textoRazones {

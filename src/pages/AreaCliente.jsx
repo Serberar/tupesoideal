@@ -84,7 +84,7 @@ const AreaCliente = () => {
                   Descargar Archivo
                 </button>
                 <br /><br />
-                Fecha de Creación: {archivo.fecha_creacion}
+                {/* Fecha de Creación: {archivo.fecha_creacion} */}
               </li>
             ))}
           </ul>
@@ -93,15 +93,15 @@ const AreaCliente = () => {
 
       {privados && privados.posts_sin_archivos && privados.posts_sin_archivos.length > 0 && (
         <div>
-          <h2>Posts sin Archivos</h2>
+          <h2>Enlaces a videochat</h2>
           <ul>
             {privados.posts_sin_archivos.map((post) => (
               <li key={post.ID}>
                 <strong>{post.titulo}</strong>
                 <br />
-                <div dangerouslySetInnerHTML={renderizarHTML(post.contenido)} />
+                <div dangerouslySetInnerHTML={renderizarHTML(post.contenido)}/>
                 <br /><br />
-                Fecha de Creación: {post.fecha_creacion}
+                {/* Fecha de Creación: {post.fecha_creacion} */}
               </li>
             ))}
           </ul>
