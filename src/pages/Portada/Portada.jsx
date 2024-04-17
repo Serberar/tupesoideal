@@ -1,23 +1,36 @@
-import React, { useContext, useState } from 'react';
-import { myContext } from '../components/Context';
+import React, { useContext, useState, useEffect } from 'react';
+import { myContext } from '../../components/Context';
 import { Link } from 'react-router-dom';
-import '../css/Portada.css';
+import './Portada.css';
 
 const Portada = () => {
   const { state, agregarAlCarrito } = useContext(myContext);
   const [verCarrito, setVerCarrito] = useState(false);
   const [elementoActivo, setElementoActivo] = useState(null);
+  const [year, setYear] = useState(null);
+
+  useEffect(() => {
+    createYear();
+  }, []);
+
+  function createYear() {
+    const date = new Date();
+    setYear(date.getFullYear());
+  }
 
   const temporizadorVerCarrito = () => {
     setVerCarrito(true);
     setTimeout(() => {
       setVerCarrito(false);
-    }, 3000); // Cambiar el tiempo de visualización del carrito según sea necesario
+    }, 3000); // Cambiar el tiempo de visualización del carrito
   };
 
   const ControlCLickAcordeon = (index) => {
     setElementoActivo(elementoActivo === index ? null : index);
   };
+
+console.log(state.Productos);
+
 
   return (
     <div className='portada'>
@@ -157,7 +170,7 @@ const Portada = () => {
             <li><a href="https://es.linkedin.com">LinkedIn</a></li>
           </ul>
         </div>
-        <p>copyright 2023</p>
+        <p>copyright {year}</p>
       </div>
     </div>
   );

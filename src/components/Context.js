@@ -180,7 +180,8 @@ enviarPedido = async () => {
   }
 }
 
-    
+//actualizar cantidades del carrito
+  
 actualizarCantidadEnCarrito = (updatedItems) => {
     this.setState({
       items: updatedItems

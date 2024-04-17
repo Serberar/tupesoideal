@@ -1,9 +1,14 @@
 import React, { useContext } from 'react';
-import { myContext } from '../components/Context';
-import '../css/Carrito.css';
+import { Link } from 'react-router-dom';
+import { myContext } from '../../components/Context';
+import './Carrito.css';
 
 const Carrito = () => {
   const { state, eliminarDelCarrito, enviarPedido, actualizarCantidadEnCarrito } = useContext(myContext);
+
+  // Verificar si hay datos de usuario en el estado
+  const usuario = Array.isArray(state.userData) && state.userData.length > 0 ? state.userData[0] : null;
+
 
   const aumentarCantidad = (itemId) => {
     const updatedItems = state.items.map((item) => {
@@ -58,7 +63,16 @@ const Carrito = () => {
         ))}
       </ul>
       <p className='subtotalCarrito'>Subtotal: {state.subtotal}€</p>
-      <button onClick={() => enviarPedido()}>Comprar</button>
+     {/* Desactivar el botón de Comprar y mostrar un mensaje si el usuario no está autenticado */}
+     {!usuario && (
+        <div>
+          <p>No has iniciado sesión. <Link to="/login">Haz clic aquí</Link> para iniciar sesión.</p>
+        </div>
+      )}
+      {/* Mostrar el botón de Comprar solo si el usuario está autenticado */}
+      {usuario && (
+        <button onClick={() => enviarPedido()}>Comprar</button>
+      )}
     </div>
   );
 };

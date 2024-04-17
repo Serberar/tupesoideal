@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { myContext } from '../components/Context';
+import { myContext } from '../../components/Context';
 import { Link } from 'react-router-dom';
-import '../css/Productos.css';
+import './Productos.css';
 
 const Productos = () => {
   const { state, agregarAlCarrito } = useContext(myContext);

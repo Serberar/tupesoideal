@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { myContext } from '../components/Context';
-import '../css/Nav.css';
+import { myContext } from '../Context';
+import './Nav.css';
 
 const Enlaces = () => {
   const { state, almacenarDatosUsuario, actualizarCantidadEnCarrito } = useContext(myContext);

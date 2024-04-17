@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { myContext } from '../components/Context';
+import { myContext } from '../../components/Context';
 import axios from 'axios';
 
 const AreaCliente = () => {

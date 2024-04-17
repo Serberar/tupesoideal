@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { myContext } from '../components/Context';
-import '../css/Login.css';
+import { myContext } from '../../components/Context';
+import './Login.css';
 
 
 const autenticarUsuarioFrontend = async (correo, contraseña) => {
@@ -89,7 +89,7 @@ const Login = () => {
         </div>
         <div className="logincampo">
           <label htmlFor="contraseña">Contraseña</label>
-          <input className='loginInput' type="text" name="contraseña" value={formData.contraseña} onChange={handleChange} />
+          <input className='loginInput' type="password" name="contraseña" value={formData.contraseña} onChange={handleChange} />
         </div>
 
         <input className="loginBoton" type="submit" value="Entra" />

@@ -68,7 +68,7 @@ font-size: 27px;
 
 /*PARALLAX*/
 .parallax {
-  background-image: url('../../public/img/parallax.jpg');
+  background-image: url('../../../public/img/parallax.jpg');
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-ºrepeat;

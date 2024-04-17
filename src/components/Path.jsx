@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
-import Portada from '../pages/Portada';
-import Productos from '../pages/Productos';
-import Carrito from '../pages/Carrito';
-import Registro from '../pages/Registro';
-import Login from '../pages/Login';
-import Cliente from '../pages/AreaCliente';
+import Portada from '../pages/Portada/Portada';
+import Productos from '../pages/Productos/Productos';
+import Carrito from '../pages/Carrito/Carrito';
+import Registro from '../pages/Registro/Registro';
+import Login from '../pages/Login/Login';
+import Cliente from '../pages/AreaCliente/AreaCliente';
 
 function Path() {
 

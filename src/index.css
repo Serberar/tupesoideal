@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Predeterminada';
-  src: url('/src/fonts/Montserrat.ttf');
+  src: url('../public/fonts/Montserrat.ttf');
 }
 
 body {
