@@ -1,38 +1,27 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Registro.css';
+import { useNavigate } from 'react-router-dom';
 
 const Registro = () => {
-
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-    email: '',
-    first_name: '',
-    last_name: '',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => {
-      const updatedData = { ...prevData, [name]: value };
-
-      // calcular username
-      if (name === 'first_name' || name === 'last_name') {
-        const fullName = updatedData.first_name + ' ' + updatedData.last_name;
-        updatedData.username = fullName;
-      }
-  
-      return updatedData;
-    });
-  };
+  const navigate = useNavigate(); 
+  const [mensajeError, setMensajeError] = useState('');
 
   const registrarUsuario = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
+
+    const formData = {
+      username: e.target.email.value, 
+      password: e.target.password.value,
+      email: e.target.email.value,
+      first_name: e.target.first_name.value,
+      last_name: e.target.last_name.value
+    };
+
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API}/customers`,
-        formData, 
+        formData,
         {
           auth: {
             username: process.env.REACT_APP_USER,
@@ -40,39 +29,43 @@ const Registro = () => {
           },
         }
       );
-      console.log('Respuesta exitosa:', response.data);
-
+      if (response.status === 200 || 201)  {
+        navigate('/');
+      } else {    
+        setMensajeError('Error en el registro, por favor intente nuevamente.');
+      }
     } catch (error) {
-      console.error('Error al registrar el usuario:', error);
-
+      if (error.response?.data?.message) {
+        setMensajeError(error.response.data.message);
+      } else {
+        setMensajeError('Ha ocurrido un error inesperado. Inténtalo de nuevo más tarde.');
+      }
+      console.error('Error al registrar el usuario');
     }
   };
 
   return (
     <div className='registroContainer'>
-      <form action="" className="registroFormulario" onSubmit={registrarUsuario}>
+      <form className='registroFormulario' onSubmit={registrarUsuario}>
         <h1>Registro de usuario</h1>
-        <div className="registrocampo">
-          <label htmlFor="first_name">Nombre</label>
-          <input className='registroInput' type="text" name="first_name" value={formData.first_name} onChange={handleChange} />
+        {mensajeError && <p className="mensajeError">{mensajeError}</p>}
+        <div className='registrocampo'>
+          <label htmlFor='first_name'>Nombre</label>
+          <input className='registroInput' type='text' name='first_name' />
         </div>
-        <div className="registrocampo">
-          <label htmlFor="last_name">Apellido</label>
-          <input className='registroInput' type="text" name="last_name" value={formData.last_name} onChange={handleChange} />
+        <div className='registrocampo'>
+          <label htmlFor='last_name'>Apellido</label>
+          <input className='registroInput' type='text' name='last_name' />
         </div>
-        <div className="registrocampo">
-          <label htmlFor="email">Correo electrónico</label>
-          <input className='registroInput' type="text" name="email" value={formData.email} onChange={handleChange} />
+        <div className='registrocampo'>
+          <label htmlFor='email'>Correo electrónico</label>
+          <input className='registroInput' type='email' name='email' />
         </div>
-        {/* <div className="registrocampo">
-          <label htmlFor="username">Nombre de usuario</label>
-          <input className='registroInput' type="text" name="username" value={formData.username} onChange={handleChange} />
-        </div> */}
-        <div className="registrocampo">
-          <label htmlFor="password">Contraseña</label>
-          <input className='registroInput' type="password" name="password" value={formData.password} onChange={handleChange} />
+        <div className='registrocampo'>
+          <label htmlFor='password'>Contraseña</label>
+          <input className='registroInput' type='password' name='password' />
         </div>
-        <input className="registroBoton" type="submit" value="Registro" />
+        <input className='registroBoton' type='submit' value='Registro' />
       </form>
     </div>
   );

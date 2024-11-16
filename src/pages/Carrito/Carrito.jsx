@@ -1,35 +1,34 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { myContext } from '../../components/Context';
-import './Carrito.css';
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { myContext } from '../../components/Context'
+import './Carrito.css'
 
 const Carrito = () => {
-  const { state, eliminarDelCarrito, enviarPedido, actualizarCantidadEnCarrito } = useContext(myContext);
+  const { state, eliminarDelCarrito, enviarPedido, actualizarCantidadEnCarrito } = useContext(myContext)
 
   // Verificar si hay datos de usuario en el estado
-  const usuario = Array.isArray(state.userData) && state.userData.length > 0 ? state.userData[0] : null;
-
+  const usuario = state.userData ? state.userData : null;
 
   const aumentarCantidad = (itemId) => {
     const updatedItems = state.items.map((item) => {
       if (item.id === itemId) {
-        return { ...item, quantity: item.quantity + 1 };
+        return { ...item, quantity: item.quantity + 1 }
       }
-      return item;
-    });
-    actualizarCantidadEnCarrito(updatedItems);
+      return item
+    })
+    actualizarCantidadEnCarrito(updatedItems)
   }
 
   const reducirCantidad = (itemId) => {
     const updatedItems = state.items.map((item) => {
       if (item.id === itemId && item.quantity > 1) {
-        return { ...item, quantity: item.quantity - 1 };
+        return { ...item, quantity: item.quantity - 1 }
       }
-      return item;
-    });
-    actualizarCantidadEnCarrito(updatedItems);
+      return item
+    })
+    actualizarCantidadEnCarrito(updatedItems)
   }
-  
+
   return (
     <div className='carrito'>
       <h2>Carrito de compras</h2>
@@ -63,10 +62,10 @@ const Carrito = () => {
         ))}
       </ul>
       <p className='subtotalCarrito'>Subtotal: {state.subtotal}€</p>
-     {/* Desactivar el botón de Comprar y mostrar un mensaje si el usuario no está autenticado */}
-     {!usuario && (
+      {/* Desactivar el botón de Comprar y mostrar un mensaje si el usuario no está autenticado */}
+      {!usuario && (
         <div>
-          <p>No has iniciado sesión. <Link to="/login">Haz clic aquí</Link> para iniciar sesión.</p>
+          <p>No has iniciado sesión. <Link to='/login'>Haz clic aquí</Link> para iniciar sesión.</p>
         </div>
       )}
       {/* Mostrar el botón de Comprar solo si el usuario está autenticado */}
@@ -74,7 +73,7 @@ const Carrito = () => {
         <button onClick={() => enviarPedido()}>Comprar</button>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Carrito;
+export default Carrito

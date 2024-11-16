@@ -1,36 +1,36 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { myContext } from '../../components/Context';
-import { Link } from 'react-router-dom';
-import './Portada.css';
+import React, { useContext, useState, useEffect } from 'react'
+import { myContext } from '../../components/Context'
+import { Link } from 'react-router-dom'
+import './Portada.css'
 
 const Portada = () => {
-  const { state, agregarAlCarrito } = useContext(myContext);
-  const [verCarrito, setVerCarrito] = useState(false);
-  const [elementoActivo, setElementoActivo] = useState(null);
-  const [year, setYear] = useState(null);
+  const { state, agregarAlCarrito } = useContext(myContext)
+  const [verCarrito, setVerCarrito] = useState(false)
+  const [elementoActivo, setElementoActivo] = useState(null)
+  const [year, setYear] = useState(null)
+  const post = state.post.find(post => post.id === 108);
 
   useEffect(() => {
-    createYear();
-  }, []);
+    createYear()
+  }, [])
 
   function createYear() {
-    const date = new Date();
-    setYear(date.getFullYear());
+    const date = new Date()
+    setYear(date.getFullYear())
   }
 
   const temporizadorVerCarrito = () => {
-    setVerCarrito(true);
+    setVerCarrito(true)
     setTimeout(() => {
-      setVerCarrito(false);
-    }, 3000); // Cambiar el tiempo de visualización del carrito
-  };
+      setVerCarrito(false)
+    }, 3000) // Cambiar el tiempo de visualización del carrito
+  }
 
   const ControlCLickAcordeon = (index) => {
-    setElementoActivo(elementoActivo === index ? null : index);
-  };
+    setElementoActivo(elementoActivo === index ? null : index)
+  }
 
-console.log(state.Productos);
-
+  console.log(state.post)
 
   return (
     <div className='portada'>
@@ -48,49 +48,54 @@ console.log(state.Productos);
             ))}
           </ul>
           <p>Total: {state.subtotal}€</p>
-          <Link to="/carrito">
+          <Link to='/carrito'>
             <button className='botonVerCestaProducto'>Ver cesta</button>
           </Link>
         </div>
       )}
 
       <div className='tituloHeader'>
-        <h1>Consulta de nutrición online con expertos</h1>
+        <h1>{state.post.find(post => post.id === 95)?.titulo}</h1>
       </div>
       <div className='header'>
 
         <div className='textoHeader'>
-          <h3>Nutricionista titulada - Videollamada - Seguro y confidencial</h3>
-          <p>En nuestra plataforma especializada, te ofrecemos la asesoría nutricional personalizada de una nutricionista titulada. ¡Todo desde la comodidad de tu hogar!
-            Nos dedicamos a entender tus objetivos, tus hábitos alimenticios y tu situación personal para crear un plan que no solo sea efectivo, sino también realista y adaptable a tu estilo de vida.
-            La individualidad es la clave, tendras un plan nutricional diseñado exclusivamente para ti.
+        
+          
+          <h3><b>
+          <div dangerouslySetInnerHTML={{ __html: state.post.find(post => post.id === 95)?.bloques?.[0]?.texto}}>
+          </div>
+          </b></h3>
+          <p>
+          {state.post.find(post => post.id === 95)?.bloques?.[1]?.texto}
             <br /><br />
-            ¡Tu nueva vida empieza ahora!"
-          </p></div>
+            {state.post.find(post => post.id === 95)?.bloques?.[2]?.texto}
+          </p>
+        </div>
         <div className='imagenHeader'>
-          <img src="/img/portada1.png" alt="Nutrición" />
+          <img src='/img/portada1.png' alt='Nutrición' />
         </div>
       </div>
 
       <div className='parallax'>
-          <h2 className="tituloProductos">Conoce nuestros servicios</h2>
-        <div className="productos">
+        <h2 className='tituloProductos'>Conoce nuestros servicios</h2>
+        <div className='productos'>
           {state.Productos.map((producto) => (
-            <div className="divProductoIndex" key={producto.id}>
-              <h3 className="tituloProductoIndex">{producto.title}</h3>
-              <img className="imagenProductoIndex" src={producto.images[0].src} alt={producto.title} />
+            <div className='divProductoIndex' key={producto.id}>
+              <h3 className='tituloProductoIndex'>{producto.title}</h3>
+              <img className='imagenProductoIndex' src={producto.images[0].src} alt={producto.title} />
               <div
-                className="descripcionProductoIndex"
+                className='descripcionProductoIndex'
                 dangerouslySetInnerHTML={{ __html: producto.description }}
               />
-              <div className="precioProductoIndex">
-                <p className="ProductosIndex">Este plan tiene un precio de: {producto.price}€</p>
+              <div className='precioProductoIndex'>
+                <p className='ProductosIndex'>Este plan tiene un precio de: {producto.price}€</p>
               </div>
               <button
                 className='botonCarrito'
                 onClick={() => {
-                  agregarAlCarrito(producto);
-                  temporizadorVerCarrito();
+                  agregarAlCarrito(producto)
+                  temporizadorVerCarrito()
                 }}
               >
                 Añadir al carrito
@@ -100,58 +105,50 @@ console.log(state.Productos);
         </div>
       </div>
 
-
-
-      <h3 className='tituloConsultas'>¿Por qué elegir consultas online?</h3>
-      <div className='consultas'>
-        <div className='razones'>
-          <img className='imgRazones' src='/img/icono1.jpg' alt="razón1" />
-          <p className='tituloRazones'>Accesible y Rápido</p>
-          <div className='textoRazones'>ELas consultas online ofrecen la comodidad de acceder a servicios de nutrición desde cualquier ubicación. Los usuarios pueden programar citas sin tener que desplazarse físicamente, lo que ahorra tiempo y esfuerzo. </div>
+      <h3 className='tituloConsultas'>{state.post.find(post => post.id === 108)?.titulo}</h3>
+<div className='consultas'>
+  {state.post.find(post => post.id === 108)?.bloques?.map((bloque, index) => {
+    if (index % 3 === 0) { 
+      return (
+        <div key={index} className="razones">
+          <img className="imgRazones" src={bloque?.imagen} alt={`Imagen ${index}`} />
+          <p className="tituloRazones">{state.post.find(post => post.id === 108)?.bloques[index + 1]?.texto}</p>
+          <div className="textoRazones">{state.post.find(post => post.id === 108)?.bloques[index + 2]?.texto}</div>
         </div>
-        <div className='razones'>
-          <img className='imgRazones' src='/img/icono1.jpg' alt="razón1" />
-          <p className='tituloRazones'>Flexibilidad de horarios</p>
-          <div className='textoRazones'>Las consultas en línea ofrecen horarios más flexibles, lo que permite a los usuarios elegir citas que se ajusten a sus agendas. Esto resulta beneficioso para personas con horarios ocupados o restricciones de tiempo. </div>
-        </div>
-        <div className='razones'>
-          <img className='imgRazones' src='/img/icono1.jpg' alt="razón1" />
-          <p className='tituloRazones'>Seguimiento y registro digital</p>
-          <div className='textoRazones'>Las plataformas en línea pueden proporcionar herramientas para el seguimiento y registro digital de la dieta, el progreso y los objetivos. Esto facilita a los usuarios el acceso a su historial y les ayuda a mantenerse comprometidos con su plan alimenticio</div>
-        </div>
-        <div className='razones'>
-          <img className='imgRazones' src='/img/icono1.jpg' alt="razón1" />
-          <p className='tituloRazones'>Comunicación continua</p>
-          <div className='textoRazones'>Las consultas en línea a menudo brindan una vía de comunicación continua entre el profesional de la salud y el usuario. Esto permite resolver dudas, recibir consejos y obtener apoyo adicional entre citas programadas</div>
-        </div>
-      </div>
+      );
+    }
+    return null;
+  })}
+</div>
 
-      <div className='funciona'>
-        <h4>¿Como funciona?</h4>
-      </div>
+<div className='funciona'>
+  <h4>Como funciona</h4>
+</div>
 
-      <div className='acordeonDiv'>
-        <div className="acordeon">
-          <div className={`acordeonItem ${elementoActivo === 0 ? 'active' : ''}`}>
-            <div className="acordeonTitulo" onClick={() => ControlCLickAcordeon(0)}>Pregunta 1</div>
-            <div className={`acordeonContenido ${elementoActivo === 0 ? 'active' : ''}`}>
-              <p>Respuesta a la pregunta 1.</p>
+<div className='acordeonDiv'>
+<b>{state.post.find(post => post.id === 114)?.titulo}</b>
+<br /><br />
+  <div className='acordeon'>
+    {state.post.find(post => post.id === 114)?.bloques?.map((bloque, index) => {
+      if (index % 2 === 0) { 
+        return (
+          <div key={index} className={`acordeonItem ${elementoActivo === index / 2 ? 'active' : ''}`}>
+            <div
+              className='acordeonTitulo'
+              onClick={() => ControlCLickAcordeon(index / 2)}
+            >
+              {bloque?.texto}
+            </div>
+            <div className={`acordeonContenido ${elementoActivo === index / 2 ? 'active' : ''}`}>
+              <p>{state.post.find(post => post.id === 114)?.bloques[index + 1]?.texto}</p>
             </div>
           </div>
-          <div className={`acordeonItem ${elementoActivo === 1 ? 'active' : ''}`}>
-            <div className="acordeonTitulo" onClick={() => ControlCLickAcordeon(1)}>Pregunta 2</div>
-            <div className={`acordeonContenido ${elementoActivo === 1 ? 'active' : ''}`}>
-              <p>Respuesta a la pregunta 2.</p>
-            </div>
-          </div>
-          <div className={`acordeonItem ${elementoActivo === 2 ? 'active' : ''}`}>
-            <div className="acordeonTitulo" onClick={() => ControlCLickAcordeon(2)}>Pregunta 3</div>
-            <div className={`acordeonContenido ${elementoActivo === 2 ? 'active' : ''}`}>
-              <p>Respuesta a la pregunta 3.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+        );
+      }
+      return null;
+    })}
+  </div>
+</div>
 
       <div className='footer'>
         <div className='footer-section'>
@@ -166,14 +163,14 @@ console.log(state.Productos);
         <div className='footer-section'>
           <h4>Síguenos</h4>
           <ul>
-            <li><a href="https://www.facebook.es">Facebook</a></li>
-            <li><a href="https://es.linkedin.com">LinkedIn</a></li>
+            <li><a href='https://www.facebook.es'>Facebook</a></li>
+            <li><a href='https://es.linkedin.com'>LinkedIn</a></li>
           </ul>
         </div>
         <p>copyright {year}</p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Portada;
+export default Portada

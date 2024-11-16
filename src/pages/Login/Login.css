@@ -37,6 +37,12 @@
     border: 1px solid #ccc;
     border-radius: 3px;
   }
+
+  .mensajeError {
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+  }
   
   .loginBoton {
     width: 97%;

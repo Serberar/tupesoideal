@@ -1,71 +1,71 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { myContext } from '../../components/Context';
-import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react'
+import { myContext } from '../../components/Context'
+import axios from 'axios'
 
 const AreaCliente = () => {
-  const { state } = useContext(myContext);
-  const { userData } = state;
-  const usuario = Array.isArray(userData) && userData.length > 0 ? userData[0] : null;
-  const [privados, setPrivados] = useState(null);
+  const { state } = useContext(myContext)
+  const { userData } = state
+  const usuario = Array.isArray(userData) && userData.length > 0 ? userData[0] : null
+  const [privados, setPrivados] = useState(null)
 
   const datosPrivados = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_WP_PRIVATE_LIST}${usuario.id}`, {
         auth: {
           username: process.env.REACT_APP_USER,
-          password: process.env.REACT_APP_PASSWORD,
+          password: process.env.REACT_APP_PASSWORD
         }
-      });
-      setPrivados(response.data);
+      })
+      setPrivados(response.data)
     } catch (error) {
-      console.error('Error al realizar la solicitud:', error);
+      console.error('Error al realizar la solicitud:', error)
     }
-  };
+  }
 
   const descargarArchivo = (url) => {
-    const username = process.env.REACT_APP_USER;
-    const password = process.env.REACT_APP_PASSWORD;
+    const username = process.env.REACT_APP_USER
+    const password = process.env.REACT_APP_PASSWORD
 
     const headers = new Headers({
-      'Authorization': 'Basic ' + btoa(`${username}:${password}`),
-      'Content-Type': 'application/json',
-    });
+      Authorization: 'Basic ' + btoa(`${username}:${password}`),
+      'Content-Type': 'application/json'
+    })
 
     fetch(url, {
       method: 'GET',
-      headers: headers,
+      headers
     })
       .then(response => {
         if (!response.ok) {
-          throw new Error(`Error en la respuesta: ${response.status} ${response.statusText}`);
+          throw new Error(`Error en la respuesta: ${response.status} ${response.statusText}`)
         }
 
-        const contentType = response.headers.get('content-type');
-        return response.blob().then(blob => ({ contentType, blob }));
+        const contentType = response.headers.get('content-type')
+        return response.blob().then(blob => ({ contentType, blob }))
       })
       .then(({ contentType, blob }) => {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `archivo.${contentType.split('/')[1] || 'pdf'}`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `archivo.${contentType.split('/')[1] || 'pdf'}`
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        URL.revokeObjectURL(url)
       })
       .catch(error => {
-        console.error('Error en la solicitud:', error);
-      });
-  };
+        console.error('Error en la solicitud:', error)
+      })
+  }
 
   useEffect(() => {
-    datosPrivados();
+    datosPrivados()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [usuario]);
+  }, [usuario])
 
   const renderizarHTML = (htmlString) => {
-    return { __html: htmlString };
-  };
+    return { __html: htmlString }
+  }
 
   return (
     <div>
@@ -99,7 +99,7 @@ const AreaCliente = () => {
               <li key={post.ID}>
                 <strong>{post.titulo}</strong>
                 <br />
-                <div dangerouslySetInnerHTML={renderizarHTML(post.contenido)}/>
+                <div dangerouslySetInnerHTML={renderizarHTML(post.contenido)} />
                 <br /><br />
                 {/* Fecha de Creación: {post.fecha_creacion} */}
               </li>
@@ -108,7 +108,7 @@ const AreaCliente = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default AreaCliente;
+export default AreaCliente

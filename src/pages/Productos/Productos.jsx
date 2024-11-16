@@ -1,22 +1,19 @@
-import React, { useContext, useState } from 'react';
-import { myContext } from '../../components/Context';
-import { Link } from 'react-router-dom';
-import './Productos.css';
+import React, { useContext, useState } from 'react'
+import { myContext } from '../../components/Context'
+import { Link } from 'react-router-dom'
+import './Productos.css'
 
 const Productos = () => {
-  const { state, agregarAlCarrito } = useContext(myContext);
-  const [verCarrito, setVerCarrito] = useState(false);
+  const { state, agregarAlCarrito } = useContext(myContext)
+  const [verCarrito, setVerCarrito] = useState(false)
 
-
- 
   const temporizadorVerCarrito = () => {
-    setVerCarrito(true);
+    setVerCarrito(true)
 
-    
     setTimeout(() => {
-      setVerCarrito(false);
-    }, 2000);
-  };
+      setVerCarrito(false)
+    }, 2000)
+  }
 
   return (
     <div>
@@ -34,30 +31,30 @@ const Productos = () => {
             ))}
           </ul>
           <p>Total: {state.subtotal}€</p>
-          <Link to="/carrito">
-  <button className='botonVerCestaProducto'>Ver cesta</button>
-</Link>
+          <Link to='/carrito'>
+            <button className='botonVerCestaProducto'>Ver cesta</button>
+          </Link>
         </div>
       )}
 
-      <div className="containerProductos">
-        <h1 className="h1Productos">Bonos</h1>
+      <div className='containerProductos'>
+        <h1 className='h1Productos'>Bonos</h1>
         {state.Productos.map((producto) => (
-          <div className="divProducto" key={producto.id}>
-            <h3 className="tituloProducto">{producto.title}</h3>
-            <img className="imagenProducto" src={producto.images[0].src} alt={producto.title} />
+          <div className='divProducto' key={producto.id}>
+            <h3 className='tituloProducto'>{producto.title}</h3>
+            <img className='imagenProducto' src={producto.images[0].src} alt={producto.title} />
             <div
-              className="descripcionProducto"
+              className='descripcionProducto'
               dangerouslySetInnerHTML={{ __html: producto.description }}
             />
-            <div className="precioProducto">
-              <p className="Productos">Este plan tiene un precio de: {producto.price}€</p>
+            <div className='precioProducto'>
+              <p className='Productos'>Este plan tiene un precio de: {producto.price}€</p>
             </div>
             <button
               className='botonCarrito'
               onClick={() => {
-                agregarAlCarrito(producto);
-                temporizadorVerCarrito(); 
+                agregarAlCarrito(producto)
+                temporizadorVerCarrito()
               }}
             >
               Añadir al carrito
@@ -66,7 +63,7 @@ const Productos = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Productos;
+export default Productos
