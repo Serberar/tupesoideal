@@ -8,16 +8,7 @@ const Portada = () => {
   const [verCarrito, setVerCarrito] = useState(false)
   const [elementoActivo, setElementoActivo] = useState(null)
   const [year, setYear] = useState(null)
-  const post = state.post.find(post => post.id === 108);
-
-  useEffect(() => {
-    createYear()
-  }, [])
-
-  function createYear() {
-    const date = new Date()
-    setYear(date.getFullYear())
-  }
+  const imagenParallax = state.post.find(post => post.id === 131)?.bloques?.[0]?.imagen
 
   const temporizadorVerCarrito = () => {
     setVerCarrito(true)
@@ -55,29 +46,28 @@ const Portada = () => {
       )}
 
       <div className='tituloHeader'>
-        <h1>{state.post.find(post => post.id === 95)?.titulo}</h1>
+        <h1>{state.post.find(post => post.id === 1)?.titulo}</h1>
       </div>
       <div className='header'>
 
         <div className='textoHeader'>
         
           
-          <h3><b>
-          <div dangerouslySetInnerHTML={{ __html: state.post.find(post => post.id === 95)?.bloques?.[0]?.texto}}>
-          </div>
-          </b></h3>
           <p>
-          {state.post.find(post => post.id === 95)?.bloques?.[1]?.texto}
+          {state.post.find(post => post.id === 1)?.bloques?.[0]?.texto}
+          <br /><br />
+          {state.post.find(post => post.id === 1)?.bloques?.[1]?.texto}
             <br /><br />
-            {state.post.find(post => post.id === 95)?.bloques?.[2]?.texto}
+            {state.post.find(post => post.id === 1)?.bloques?.[2]?.texto}
           </p>
         </div>
         <div className='imagenHeader'>
-          <img src='/img/portada1.png' alt='Nutrición' />
+          <img className= 'imagenLateralHeader' src={state.post.find(post => post.id === 118)?.bloques?.[0]?.imagen} alt='Nutrición' />
         </div>
       </div>
 
-      <div className='parallax'>
+      <div
+      className="parallax" style={{backgroundImage: `url(${imagenParallax})`,}}>
         <h2 className='tituloProductos'>Conoce nuestros servicios</h2>
         <div className='productos'>
           {state.Productos.map((producto) => (
@@ -105,15 +95,20 @@ const Portada = () => {
         </div>
       </div>
 
-      <h3 className='tituloConsultas'>{state.post.find(post => post.id === 108)?.titulo}</h3>
+      <h3 className='tituloConsultas'>{state.post.find(post => post.id === 122)?.titulo}</h3>
 <div className='consultas'>
-  {state.post.find(post => post.id === 108)?.bloques?.map((bloque, index) => {
+  {state.post.find(post => post.id === 122)?.bloques?.map((bloque, index) => {
     if (index % 3 === 0) { 
       return (
         <div key={index} className="razones">
-          <img className="imgRazones" src={bloque?.imagen} alt={`Imagen ${index}`} />
-          <p className="tituloRazones">{state.post.find(post => post.id === 108)?.bloques[index + 1]?.texto}</p>
-          <div className="textoRazones">{state.post.find(post => post.id === 108)?.bloques[index + 2]?.texto}</div>
+          {/* Imagen */}
+          {state.post.find(post => post.id === 122)?.bloques[index + 2]?.imagen && (
+            <img className="imgRazones" src={state.post.find(post => post.id === 122)?.bloques[index + 2]?.imagen} alt={`Imagen ${index}`} />
+          )}
+          {/* Titulo */}
+          <p className="tituloRazones">{bloque?.texto}</p>
+          {/* Descripción */}
+          <div className="textoRazones">{state.post.find(post => post.id === 122)?.bloques[index + 1]?.texto}</div>
         </div>
       );
     }
@@ -122,14 +117,30 @@ const Portada = () => {
 </div>
 
 <div className='funciona'>
-  <h4>Como funciona</h4>
+  <h4 className='tituloFunciona'>
+    {state.post.find(post => post.id === 139)?.titulo}
+  </h4>
+
+  {state.post.find(post => post.id === 139)?.bloques.map((bloque, index) => (
+    <div key={index}>
+      {/* Verifica si el texto comienza con un número (título) */}
+      {bloque.texto.match(/^\d+/) ? (
+        <p className='titulinFunciona'>
+          <span className='numeroPaso'>{bloque.texto.match(/^\d+/)[0]}</span> {bloque.texto.replace(/^\d+/, '')}
+        </p>
+      ) : (
+        <p className='textoFunciona'>{bloque.texto}</p>
+      )}
+    </div>
+  ))}
 </div>
 
+
 <div className='acordeonDiv'>
-<b>{state.post.find(post => post.id === 114)?.titulo}</b>
+<b>{state.post.find(post => post.id === 113)?.titulo}</b>
 <br /><br />
   <div className='acordeon'>
-    {state.post.find(post => post.id === 114)?.bloques?.map((bloque, index) => {
+    {state.post.find(post => post.id === 113)?.bloques?.map((bloque, index) => {
       if (index % 2 === 0) { 
         return (
           <div key={index} className={`acordeonItem ${elementoActivo === index / 2 ? 'active' : ''}`}>
@@ -140,7 +151,7 @@ const Portada = () => {
               {bloque?.texto}
             </div>
             <div className={`acordeonContenido ${elementoActivo === index / 2 ? 'active' : ''}`}>
-              <p>{state.post.find(post => post.id === 114)?.bloques[index + 1]?.texto}</p>
+              <p>{state.post.find(post => post.id === 113)?.bloques[index + 1]?.texto}</p>
             </div>
           </div>
         );
@@ -150,25 +161,43 @@ const Portada = () => {
   </div>
 </div>
 
-      <div className='footer'>
-        <div className='footer-section'>
-          <h4>Como podemos ayudarte</h4>
-          <ul>
-            <li>Dieta para adelgazar</li>
-            <li>dieta deportiva</li>
-            <li>nutrición para enfermedades</li>
-          </ul>
-        </div>
+<div className='footer'>
+  <div className='footer-section'>
+    <h4>Como podemos ayudarte</h4>
+    <ul>
+      <li>Dieta para adelgazar</li>
+      <li>Dieta deportiva</li>
+      <li>Nutrición para enfermedades</li>
+    </ul>
+  </div>
 
-        <div className='footer-section'>
-          <h4>Síguenos</h4>
-          <ul>
-            <li><a href='https://www.facebook.es'>Facebook</a></li>
-            <li><a href='https://es.linkedin.com'>LinkedIn</a></li>
-          </ul>
-        </div>
-        <p>copyright {year}</p>
-      </div>
+  <div className='footer-section'>
+    <h4>Síguenos</h4>
+    <ul>
+      <li><a href='https://www.facebook.es'><i className="fab fa-facebook-f"></i> Facebook</a></li>
+      <li><a href='https://es.linkedin.com'><i className="fab fa-linkedin-in"></i> LinkedIn</a></li>
+    </ul>
+  </div>
+
+  <div className='footer-section'>
+    <h4>Suscríbete</h4>
+    <p>Recibe nuestras noticias y consejos sobre nutrición.</p>
+    <form className="footer-form">
+      <input type="email" placeholder="Introduce tu correo" />
+      <button type="submit">Suscribirse</button>
+    </form>
+  </div>
+
+  <div className='footer-bottom'>
+    <p>&copy; {new Date().getFullYear()} - Todos los derechos reservados.</p>
+    <div className="footer-links">
+      <a href="/about">Sobre nosotros</a> | 
+      <a href="/privacy">Política de privacidad</a> | 
+      <a href="/terms">Términos y condiciones</a>
+    </div>
+  </div>
+</div>
+
     </div>
   )
 }

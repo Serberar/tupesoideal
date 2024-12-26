@@ -12,6 +12,7 @@ const Enlaces = () => {
   const toggleMenu = () => {
     setMenuVisible(!menuVisible)
   }
+console.log(userData);
 
   const cerrarSesion = () => {
     localStorage.removeItem('userData')

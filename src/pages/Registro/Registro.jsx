@@ -11,7 +11,7 @@ const Registro = () => {
     e.preventDefault();
 
     const formData = {
-      username: e.target.email.value, 
+      username: e.target.first_name.value + " " +e.target.last_name.value, 
       password: e.target.password.value,
       email: e.target.email.value,
       first_name: e.target.first_name.value,
@@ -30,7 +30,7 @@ const Registro = () => {
         }
       );
       if (response.status === 200 || 201)  {
-        navigate('/');
+        navigate('/login');
       } else {    
         setMensajeError('Error en el registro, por favor intente nuevamente.');
       }

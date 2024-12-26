@@ -27,7 +27,10 @@ const Login = () => {
       }
     } catch (error) {
       console.error('Error al autenticar al usuario');
-      setMensajeError('Error al validad los datos. Vuelve a intentarlo');
+      setMensajeError(`
+        Error al validar los datos. Vuelve a intentarlo.<br /><br />
+        ¿Olvidaste tu contraseña? <a href="https://google.es" target="_blank" rel="noopener noreferrer">Pincha aquí</a>
+      `);
     }
   };
 //falta opción de recuperar contraseña
@@ -47,7 +50,9 @@ http://localhost/wordpress/mi-cuenta/lost-password/
           <input className='loginInput' type='password' name='contraseña' />
         </div>
 
-        {mensajeError && <p className='mensajeError'>{mensajeError}</p>} 
+        {mensajeError && (
+  <p className="mensajeError" dangerouslySetInnerHTML={{ __html: mensajeError }}></p>
+)}
         <input className='loginBoton' type='submit' value='Entra' />
         <div className='enlaceRegistro'>
           No estás registrado? Regístrate aquí

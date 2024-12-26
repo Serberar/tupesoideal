@@ -1,34 +1,38 @@
 /*PORTADA*/
-.portada{
+
+.portada {
   background-color: rgb(242, 250, 242);
   padding-top: 10vh;
 }
 
 /*HEADER*/
+
 .tituloHeader {
   text-align: center;
 }
 
 .header {
   display: flex;
-  align-items: flex-start;
   padding: 0 5vh;
+
+}
+.imagenHeader {
+  text-align: center;
+  flex: 1;
+  object-fit: cover; 
 }
 
-.imagenHeader {
+.imagenLateralHeader{
   width: 50%;
-  text-align: right;
-  flex: 1;
-  margin-bottom: -0.5vh; 
 }
 
 .textoHeader {
   width: 50%;
-  flex: 1; 
+  flex: 1;
 }
 
 .textoHeader h3 {
-font-size: 27px;
+  font-size: 27px;
 }
 
 .textoHeader p {
@@ -39,8 +43,8 @@ font-size: 27px;
 
 @media screen and (max-width: 1300px) {
   .header {
-    flex-direction: column; 
-    align-items: center; 
+    flex-direction: column;
+    align-items: center;
     padding: 5vh;
   }
 
@@ -56,35 +60,36 @@ font-size: 27px;
     width: 100%;
     margin-bottom: -5vh;
     display: flex;
-    justify-content: center; 
+    justify-content: center;
   }
 
-  .imagenHeader img {
-    max-width: 100%; 
+  .imagenLateralHeader {
+    max-width: 100%;
+    margin-bottom: 20px;
   }
 }
 
-
-
 /*PARALLAX*/
+
 .parallax {
-  background-image: url('../../../public/img/parallax.jpg');
   background-attachment: fixed;
   background-position: center;
-  background-repeat: no-ºrepeat;
+  background-repeat: no-repeat;
   background-size: cover;
 
 
   font-size: 24px;
-  
+
   margin-bottom: 5vh;
   padding: 5vh;
 }
 
 /*PRODUCTOS*/
+
 .tituloProductos {
   text-align: center;
 }
+
 .productos {
   display: flex;
   flex-wrap: wrap;
@@ -92,7 +97,7 @@ font-size: 27px;
 }
 
 .divProductoIndex {
-  width: calc(33.33% - 20px); /* Ajusta el ancho de cada elemento según tus necesidades */
+  width: calc(33.33% - 20px);
   margin-bottom: 20px;
   padding: 15px;
   border: 1px solid #ccc;
@@ -107,7 +112,8 @@ font-size: 27px;
 
 .imagenProductoIndex {
   width: 100%;
-  height: auto;
+  height: 300px;
+  object-fit: cover;
   margin-bottom: 10px;
 }
 
@@ -137,13 +143,11 @@ font-size: 27px;
   background-color: #0056b3;
 }
 
-/* Media query para pantallas pequeñas */
 @media screen and (max-width: 768px) {
   .divProductoIndex {
-    width: calc(50% - 20px); /* Dos elementos por fila en pantallas pequeñas */
+    width: calc(50% - 20px);
   }
 
-  /* Centrar elemento cuando solo hay uno en la fila */
   .divProductoIndex:nth-child(odd),
   .divProductoIndex:nth-child(even) {
     width: 100%;
@@ -152,14 +156,13 @@ font-size: 27px;
   }
 }
 
-
-
 /*CONSULTAS*/
+
 .consultas {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin: 0 10vh; 
+  margin: 0 10vh;
 }
 
 .tituloConsultas {
@@ -167,7 +170,7 @@ font-size: 27px;
 }
 
 .razones {
-  width: calc(25% - 150px); 
+  width: calc(25% - 150px);
   min-width: 30vh;
   margin-bottom: 5vh;
 }
@@ -186,20 +189,59 @@ font-size: 27px;
 }
 
 @media screen and (max-width: 768px) {
-  /* Ajuste de los elementos para pantallas pequeñas */
+
   .razones {
-    width: 100%; /* Ancho completo en pantallas pequeñas */
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
   }
 }
 
 /*FUNCIONA*/
+
 .funciona {
   height: auto;
   background-color: rgb(180, 207, 184);
   padding: 5vh;
   margin-bottom: 5vh;
+}
+
+.tituloFunciona {
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.titulinFunciona {
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  line-height: 1.5;
+  text-align: left; 
+}
+
+.textoFunciona {
+  color: #3b3a3a;
+  text-align: left; 
+  line-height: 1.6;
+  margin-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.funciona div {
+  margin-bottom: 30px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+.numeroPaso {
+  color: #e74c3c;
+  font-weight: bold;
+  font-size: 22px;
+  margin-right: 10px;
 }
 
 /*ACORDEON*/
@@ -223,38 +265,50 @@ font-size: 27px;
   padding: 10px;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s ease; 
+}
+
+.acordeonTitulo:hover {
+  background-color: #e2e2e2; 
 }
 
 .acordeonContenido {
+  background-color: #f5f5f5;
   max-height: 0;
+  opacity: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease-out;
+  transition: max-height 1s ease-out, opacity 0.6s ease-out; 
 }
 
 .acordeonContenido.active {
-  max-height: 1000px; 
+  max-height: 500px; 
+  opacity: 1;
 }
 
 /*FOOTER*/
+
 .footer {
+  margin-top: 50px;
+  background-color: #f2f2f2;
+  color: #333;
+  padding: 4vh 5vw;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  background-color: #f2f2f2;
-  padding: 20px;
-  color: #333;
-  font-family: Arial, sans-serif;
-  margin-top: 50px;
+  flex-wrap: wrap;
+  border-top: 3px solid rgb(180, 207, 184);
 }
 
 .footer-section {
+  flex: 1;
   margin-right: 30px;
+  margin-bottom: 20px;
 }
 
 .footer-section h4 {
-  font-size: 18px;
-  margin-bottom: 10px;
-  color: #555;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 
 .footer-section ul {
@@ -263,18 +317,87 @@ font-size: 27px;
 }
 
 .footer-section ul li {
-  margin-bottom: 5px;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .footer-section ul li a {
+  color: #333;
   text-decoration: none;
-  color: #777;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
 }
 
-.footer p {
+.footer-section ul li a i {
+  margin-right: 10px; /* Espacio entre el icono y el texto */
+}
+
+.footer-section ul li a:hover {
+  color: rgb(180, 207, 184);
+}
+
+.footer-form {
+  display: flex;
+}
+
+.footer-form input {
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  width: 180px;
+}
+
+.footer-form button {
+  padding: 8px 15px;
+  background-color: rgb(180, 207, 184);
+  border: none;
+  color: #333;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.footer-form button:hover {
+  background-color: rgb(69, 155, 83);
+}
+
+.footer-bottom {
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+  font-size: 14px;
+  color: #333;
+}
+
+.footer-links {
   font-size: 14px;
   margin-top: 10px;
-  text-align: center;
-  color: #888;
 }
 
+.footer-links a {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: rgb(69, 155, 83);
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-section {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .footer-bottom {
+    margin-top: 20px;
+  }
+}
