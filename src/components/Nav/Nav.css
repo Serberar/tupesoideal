@@ -1,38 +1,95 @@
+/* Contenedor principal de la barra de navegación */
 .nav-div {
-  display: flex;
-  justify-content: center;
-padding-top: 10px;
+  padding: 10px 20px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%; 
-  z-index: 999; 
-  background-color: rgba(255, 255, 255, 0.9); 
+  width: 100%;
+  z-index: 999;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
-  
-  nav ul {
-    list-style: none;
-    display: flex;
-    padding: 0;
-  }
-  
-  nav li {
-    margin: 0 15px;
-  }
-  
-  nav a {
-    text-decoration: none;
-    color: #618a5d;
-    font-weight: bold;
-    font-size: 16px;
-  }
-  
-  nav a:hover {
-    color: #385236;
-  }
-  
+.navbar{
+  display: flex;
+  justify-content: space-between; /* Distribuye el contenido a los extremos */
+  align-items: center; /* Centra verticalmente los elementos */
+}
+
+/* Estilos para el menú */
+.menu {
+  display: flex;
+  justify-content: center; /* Centra el menú */
+  align-items: center;
+  flex: 1; /* Ocupa el espacio restante entre el logo y el usuario */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu li {
+  margin: 0 15px;
+}
+
+.usuario {
+  display: flex;
+  align-items: center; /* Centra los elementos verticalmente */
+  justify-content: flex-end; /* Alinea los elementos al final del contenedor */
+  list-style: none;
+  margin:0;
+  margin-right: 30px;
+  padding: 0;
+}
+
+.usuario li {
+  margin: 0 10px;
+}
+
+.saludo {
+  text-align: center; /* Centra el texto dentro de su contenedor */
+  color: #618a5d;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.botonCerrarSesion {
+  width: 100%;
+  background-color: #618a5d;
+  color: #fff;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.botonCerrarSesion:hover {
+  background-color: #385236;
+}
+
+nav ul {
+  list-style: none;
+  display: flex; /* Asegura que los elementos estén alineados horizontalmente */
+  padding: 0;
+}
+
+nav li {
+  margin: 0 15px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #618a5d;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+nav a:hover {
+  color: #385236;
+}
+
+/* Carrito styles */
 .carritoNav {
   position: fixed;
   margin: 10px;
@@ -53,17 +110,17 @@ padding-top: 10px;
   padding: 0;
 }
 
-.spanCarritoNav{
-  margin: 2px;
-  text-align: center;
-}
-
 .ulCarritoNav li {
   margin-bottom: 10px;
   border-bottom: 1px solid #ddd;
   padding-bottom: 10px;
   display: flex;
   justify-content: space-between;
+}
+
+.spanCarritoNav {
+  margin: 2px;
+  text-align: center;
 }
 
 .botonVerCesta {
@@ -82,22 +139,24 @@ padding-top: 10px;
   background-color: #385236;
 }
 
+/* Responsive design */
 @media screen and (min-width: 751px) {
   .hamburger-menu {
-    display: none; 
+    display: none;
   }
 
   .icono {
-    display: none; 
+    display: none;
   }
-  .carrito-movil{
+
+  .carrito-movil {
     display: none;
   }
 }
 
 @media screen and (max-width: 750px) {
   .hamburger-menu {
-    display: block; 
+    display: block;
     position: absolute;
     top: 20px;
     left: 20px;
@@ -105,25 +164,25 @@ padding-top: 10px;
     border: none;
     cursor: pointer;
     width: 40px;
-    height: 40px; 
+    height: 40px;
     padding: 0;
   }
 
   .icono {
-    display: block; 
-    width: 100%; 
-    height: auto; 
+    display: block;
+    width: 100%;
+    height: auto;
   }
- 
+
   nav ul {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; 
+    align-items: flex-start;
     padding: 0;
   }
 
   nav li {
-    margin: 10px 0; 
+    margin: 10px 0;
   }
 
   .navbar {
@@ -148,16 +207,16 @@ padding-top: 10px;
   .carrito-movil {
     display: flex;
     align-items: center;
-    margin-top: 10px; /* Ajusta el margen superior según sea necesario */
-    position: fixed; /* Posición fija para el carrito */
-    top: 20px; /* Distancia desde la parte superior */
-    right: 20px; /* Distancia desde la parte derecha */
+    margin-top: 10px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
     background-color: #fff;
     border: 1px solid #ddd;
     padding: 10px;
-    border-radius: 50%; /* Ajusta el borde para que sea un círculo */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
-    z-index: 999; /* Asegura que esté encima del resto del contenido */
+    border-radius: 50%;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 999;
   }
 
   .carrito-movil a {
@@ -170,10 +229,8 @@ padding-top: 10px;
   }
 
   .carrito-movil img {
-    width: 20px; /* Tamaño deseado para la imagen del carrito */
+    width: 20px;
     height: 20px;
-    margin-right: 5px; /* Espacio entre la imagen y el número de elementos */
+    margin-right: 5px;
   }
-
 }
-

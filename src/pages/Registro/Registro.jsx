@@ -4,18 +4,28 @@ import './Registro.css';
 import { useNavigate } from 'react-router-dom';
 
 const Registro = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [mensajeError, setMensajeError] = useState('');
 
   const registrarUsuario = async (e) => {
     e.preventDefault();
 
     const formData = {
-      username: e.target.first_name.value + " " +e.target.last_name.value, 
+      username: e.target.first_name.value + " " + e.target.last_name.value,
       password: e.target.password.value,
       email: e.target.email.value,
       first_name: e.target.first_name.value,
-      last_name: e.target.last_name.value
+      last_name: e.target.last_name.value,
+      billing: {
+        first_name: e.target.first_name.value,
+        last_name: e.target.last_name.value,
+        address_1: e.target.address.value,
+        city: e.target.city.value,
+        postcode: e.target.postcode.value,
+        state: e.target.state.value,
+        email: e.target.email.value,
+        phone: e.target.phone.value,
+      }
     };
 
     try {
@@ -29,9 +39,9 @@ const Registro = () => {
           },
         }
       );
-      if (response.status === 200 || 201)  {
+      if (response.status === 200 || 201) {
         navigate('/login');
-      } else {    
+      } else {
         setMensajeError('Error en el registro, por favor intente nuevamente.');
       }
     } catch (error) {
@@ -54,7 +64,7 @@ const Registro = () => {
           <input className='registroInput' type='text' name='first_name' />
         </div>
         <div className='registrocampo'>
-          <label htmlFor='last_name'>Apellido</label>
+          <label htmlFor='last_name'>Apellidos</label>
           <input className='registroInput' type='text' name='last_name' />
         </div>
         <div className='registrocampo'>
@@ -64,6 +74,26 @@ const Registro = () => {
         <div className='registrocampo'>
           <label htmlFor='password'>Contraseña</label>
           <input className='registroInput' type='password' name='password' />
+        </div>
+        <div className='registrocampo'>
+          <label htmlFor='phone'>Teléfono</label>
+          <input className='registroInput' type='number' name='phone' required />
+        </div>
+        <div className='registrocampo'>
+          <label htmlFor='address'>Calle</label>
+          <input className='registroInput' type='text' name='address' required />
+        </div>
+        <div className='registrocampo'>
+          <label htmlFor='city'>Ciudad</label>
+          <input className='registroInput' type='text' name='city' />
+        </div>
+        <div className="registrocampo">
+          <label htmlFor="state">Región/Provincia</label>
+          <input className='registroInput' type='text' name='state' required />
+        </div>
+        <div className="registrocampo">
+          <label htmlFor="state">código postal</label>
+          <input className='registroInput' type='number' name='postcode' required />
         </div>
         <input className='registroBoton' type='submit' value='Registro' />
       </form>

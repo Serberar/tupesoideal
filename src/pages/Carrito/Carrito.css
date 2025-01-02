@@ -1,7 +1,7 @@
 /* Estilos para el componente de carrito */
 .carrito {
 width: 60vw;
-    margin: 0 auto;
+    margin: 100px auto;
     padding: 20px;
     border: 1px solid #ccc;
     background-color: #fff;
@@ -42,7 +42,7 @@ width: 60vw;
   }
   
   /* Estilos para el botón "Eliminar" */
-  button {
+  .eliminar {
     background-color: #f44336;
     color: #fff;
     border: none;
@@ -53,7 +53,7 @@ width: 60vw;
     transition: background-color 0.3s;
   }
   
-  button:hover {
+  .eliminar:hover {
     background-color: #a72d24;
   }
   
@@ -64,7 +64,7 @@ width: 60vw;
     margin-top: 20px;
   }
   
-  button.comprar {
+  .comprar {
     width: 100%;
     background-color: #618a5d;
     color: #fff;
@@ -76,7 +76,15 @@ width: 60vw;
     transition: background-color 0.3s;
   }
   
-  button.comprar:hover {
+  .comprar:hover {
     background-color: #385236;
   }
-  
+  .cantidadBoton{
+    background-color: #618a5d;
+    color: #fff;
+    border: none;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }

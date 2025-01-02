@@ -8,6 +8,7 @@ const Carrito = () => {
 
   // Verificar si hay datos de usuario en el estado
   const usuario = state.userData ? state.userData : null;
+console.log('usuario',usuario);
 
   const aumentarCantidad = (itemId) => {
     const updatedItems = state.items.map((item) => {
@@ -57,7 +58,7 @@ const Carrito = () => {
                 <span>Precio: {item.price * item.quantity}€</span>
               </div>
             </div>
-            <button onClick={() => eliminarDelCarrito(item.id)}>Eliminar</button>
+            <button className='eliminar' onClick={() => eliminarDelCarrito(item.id)}>Eliminar</button>
           </li>
         ))}
       </ul>
@@ -70,7 +71,7 @@ const Carrito = () => {
       )}
       {/* Mostrar el botón de Comprar solo si el usuario está autenticado */}
       {usuario && (
-        <button onClick={() => enviarPedido()}>Comprar</button>
+        <button className='comprar' onClick={() => enviarPedido()}>Comprar</button>
       )}
     </div>
   )

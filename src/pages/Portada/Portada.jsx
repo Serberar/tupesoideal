@@ -7,7 +7,6 @@ const Portada = () => {
   const { state, agregarAlCarrito } = useContext(myContext)
   const [verCarrito, setVerCarrito] = useState(false)
   const [elementoActivo, setElementoActivo] = useState(null)
-  const [year, setYear] = useState(null)
   const imagenParallax = state.post.find(post => post.id === 131)?.bloques?.[0]?.imagen
 
   const temporizadorVerCarrito = () => {
@@ -21,7 +20,9 @@ const Portada = () => {
     setElementoActivo(elementoActivo === index ? null : index)
   }
 
-  console.log(state.post)
+  // console.log('post',state.post)
+  // console.log('productos',state.Productos);
+  
 
   return (
     <div className='portada'>
@@ -67,33 +68,42 @@ const Portada = () => {
       </div>
 
       <div
-      className="parallax" style={{backgroundImage: `url(${imagenParallax})`,}}>
-        <h2 className='tituloProductos'>Conoce nuestros servicios</h2>
-        <div className='productos'>
-          {state.Productos.map((producto) => (
-            <div className='divProductoIndex' key={producto.id}>
-              <h3 className='tituloProductoIndex'>{producto.title}</h3>
-              <img className='imagenProductoIndex' src={producto.images[0].src} alt={producto.title} />
-              <div
-                className='descripcionProductoIndex'
-                dangerouslySetInnerHTML={{ __html: producto.description }}
-              />
-              <div className='precioProductoIndex'>
-                <p className='ProductosIndex'>Este plan tiene un precio de: {producto.price}€</p>
-              </div>
-              <button
-                className='botonCarrito'
-                onClick={() => {
-                  agregarAlCarrito(producto)
-                  temporizadorVerCarrito()
-                }}
-              >
-                Añadir al carrito
-              </button>
-            </div>
-          ))}
+  className="parallax" 
+  style={{ backgroundImage: `url(${imagenParallax})` }}
+>
+  <h2 className='tituloProductos'>Conoce nuestros servicios</h2>
+  <div className='productos'>
+    {state.Productos
+      .sort((a, b) => parseFloat(a.price) - parseFloat(b.price)) // Ordenar por precio de menor a mayor
+      .map((producto) => (
+        <div className='divProductoIndex' key={producto.id}>
+          <h3 className='tituloProductoIndex'>{producto.name}</h3>
+          <img 
+            className='imagenProductoIndex' 
+            src={producto.images[0]?.src} 
+            alt={producto.name} 
+          />
+          <div
+            className='descripcionProductoIndex'
+            dangerouslySetInnerHTML={{ __html: producto.description }}
+          />
+          <div className='precioProductoIndex'>
+            <p className='ProductosIndex'>Este plan tiene un precio de: {producto.price}€</p>
+          </div>
+          <button
+            className='botonCarrito'
+            onClick={() => {
+              agregarAlCarrito(producto)
+              temporizadorVerCarrito()
+            }}
+          >
+            Añadir al carrito
+          </button>
         </div>
-      </div>
+      ))}
+  </div>
+</div>
+
 
       <h3 className='tituloConsultas'>{state.post.find(post => post.id === 122)?.titulo}</h3>
 <div className='consultas'>

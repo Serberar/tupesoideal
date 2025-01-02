@@ -7,8 +7,10 @@ const AreaCliente = () => {
   const { state } = useContext(myContext);
   const { userData } = state;
   const [privados, setPrivados] = useState(null);
-  const [pedidos, setPedidos] = useState([])
   const navigate = useNavigate();
+
+  console.log('token: ',userData.token);
+  
 
   useEffect(() => {
     if (!userData) {
@@ -25,15 +27,15 @@ const AreaCliente = () => {
     };
 
     descargarDatosPrivados();
-    historicoPedidos();
   }, [userData, navigate]); 
 
 
   const datosPrivados = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_WP_PRIVATE_LIST}${userData.usuario.email}`, {
-        headers: {
-          'Authorization': `Bearer ${userData.token}`,
+      const response = await axios.get(`${process.env.REACT_APP_WP_PRIVATE_LIST}${userData.user_email}`, {
+        auth: {
+          username: process.env.REACT_APP_USER,
+          password: process.env.REACT_APP_PASSWORD
         }
       })
       setPrivados(response.data)
@@ -42,61 +44,48 @@ const AreaCliente = () => {
     }
   }
 
+
+
+
   const descargarArchivo = (url) => {
+    const username = process.env.REACT_APP_USER
+    const password = process.env.REACT_APP_PASSWORD
+
+    const headers = new Headers({
+      Authorization: 'Basic ' + btoa(`${username}:${password}`),
+      'Content-Type': 'application/json'
+    })
+
     fetch(url, {
       method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${userData.token}`,
-        'Cache-Control': 'no-cache',  
-      }
+      headers
     })
       .then(response => {
-        if (response.status === 301 || response.status === 302) {
-          const newUrl = response.headers.get('Location');
-          console.log('Redirigiendo a:', newUrl);
-          return fetch(newUrl, {
-            method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${userData.token}`,
-              'Cache-Control': 'no-cache',  
-            }
-          });
-        }
         if (!response.ok) {
-          throw new Error(`Error en la respuesta: ${response.status} ${response.statusText}`);
+          throw new Error(`Error en la respuesta: ${response.status} ${response.statusText}`)
         }
-        const contentType = response.headers.get('content-type');
-        return response.blob().then(blob => ({ contentType, blob }));
+
+        const contentType = response.headers.get('content-type')
+        return response.blob().then(blob => ({ contentType, blob }))
       })
       .then(({ contentType, blob }) => {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `archivo.${contentType.split('/')[1] || 'pdf'}`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `archivo.${contentType.split('/')[1] || 'pdf'}`
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        URL.revokeObjectURL(url)
       })
       .catch(error => {
-        console.error('Error en la solicitud:', error);
-      });
+        console.error('Error en la solicitud:', error)
+      })
   }
   
-  const historicoPedidos = async() => {
-    try{
-      const response = await axios.get(`${process.env.REACT_APP_API}/orders?customer=${userData.usuario.id}`,{
-        auth: {
-          username: process.env.REACT_APP_USER,
-          password: process.env.REACT_APP_PASSWORD
-        }
-      })
-      setPedidos(response.data);
-    }catch(error){
-      console.error('error al descargar el historico de pedidos:', error);
-      
-    }
-  }
+
+
+  
 
   const renderizarHTML = (htmlString) => {
     return { __html: htmlString }
@@ -107,6 +96,7 @@ const AreaCliente = () => {
       <h1>Archivos Privados</h1>
       {privados && privados.archivos_privados && privados.archivos_privados.length > 0 && (
         <div>
+          {/* <h2>Archivos Privados</h2> */}
           <ul>
             {privados.archivos_privados.map((archivo) => (
               <li key={archivo.ID}>
@@ -119,6 +109,7 @@ const AreaCliente = () => {
                 </button>
 
                 <br /><br />
+                {/* Fecha de Creación: {archivo.fecha_creacion} */}
               </li>
             ))}
           </ul>
@@ -127,6 +118,7 @@ const AreaCliente = () => {
 
       {privados && privados.posts_sin_archivos && privados.posts_sin_archivos.length > 0 && (
         <div>
+          {/* <h2>Enlaces a videochat</h2> */}
           <ul>
             {privados.posts_sin_archivos.map((post) => (
               <li key={post.ID}>
@@ -134,37 +126,12 @@ const AreaCliente = () => {
                 <br />
                 <div dangerouslySetInnerHTML={renderizarHTML(post.contenido)} />
                 <br /><br />
+                {/* Fecha de Creación: {post.fecha_creacion} */}
               </li>
             ))}
           </ul>
         </div>
       )}
-      <h3>Histórico de pedidos</h3>
-{pedidos.length === 0 ? (
-  <p>No tienes pedidos registrados</p>
-) : (
-  <table>
-    <thead>
-      <tr>
-        <th>Fecha</th>
-        <th>Estado</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      {pedidos.map((pedido) => (
-        <tr key={pedido.id}>
-          <td>{new Date(pedido.date_created).toLocaleDateString()}</td>
-          <td>{pedido.status}</td>
-          <td>{pedido.total} {pedido.currency}</td>
-         
-        </tr>
-      ))}
-    </tbody>
-  </table>
-)}
-
-      
     </div>
   )
 }

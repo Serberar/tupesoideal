@@ -12,7 +12,7 @@ const Enlaces = () => {
   const toggleMenu = () => {
     setMenuVisible(!menuVisible)
   }
-console.log(userData);
+console.log('Datos de usuario', userData);
 
   const cerrarSesion = () => {
     localStorage.removeItem('userData')
@@ -43,7 +43,7 @@ console.log(userData);
         <img className='icono' src='https://cdn-icons-png.flaticon.com/512/6209/6209279.png' alt='Menú' />
       </button>
       <nav className={`navbar ${menuVisible ? 'active' : ''}`}>
-        <ul>
+        <ul className='menu'>
           <li>
             <NavLink to='/' onClick={cerrarMenu}>Inicio</NavLink>
           </li>
@@ -62,9 +62,16 @@ console.log(userData);
               <NavLink to='/carrito' onClick={cerrarMenu}>Carrito ({totalQuantity})</NavLink>
             )}
           </li>
+         </ul>
+         <ul className='usuario'>
+         {usuario && (
+            <li>
+              <p className='saludo'>Bienvenido {usuario.usuario.nombre}</p>
+            </li>
+          )}
           {usuario && (
             <li>
-              <button onClick={cerrarSesion}>{usuario.user_display_name} Cerrar Sesión</button>
+              <button className='botonCerrarSesion' onClick={cerrarSesion}>Cerrar Sesión</button>
             </li>
           )}
         </ul>

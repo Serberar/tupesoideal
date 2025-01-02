@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { jwtDecode } from 'jwt-decode';
 
 // Crea el contexto
 export const myContext = React.createContext()
@@ -79,107 +78,6 @@ export class MyProvider extends Component {
       console.error("Error descargando los posts:", error);
     }
   };
-  
-
-
-
-
-
-//casi perfecta
-  // descargarPost = async () => {
-  //   try {
-  //     const response = await axios.get(process.env.REACT_APP_WP_POST);
-  //     const postDescargados = response.data.map(post => {
-  //       const contenidoHTML = post.content.rendered;
-  
-  //       // Obtener las imágenes y extraer las URLs del atributo srcset
-  //       const imagenes = contenidoHTML.match(/<img [^>]*srcset="([^"]*)"/g);
-  //       const imagenesURLs = imagenes ? imagenes.map(img => {
-  //         const srcset = img.match(/srcset="([^"]*)"/)[1];
-  //         return srcset.split(' ')[0]; // Guardar solo la primera URL
-  //       }) : [];
-  
-  //       // Separar el contenido HTML en texto y figuras (imágenes)
-  //       const fragmentoHTML = contenidoHTML.split(/(<figure class="wp-block-image[^>]*>.*?<\/figure>)/g); // Separa por imágenes también
-  
-  //       const bloques = [];
-  //       fragmentoHTML.forEach(fragmento => {
-  //         // Si el fragmento es una imagen, agregarla al bloque
-  //         if (fragmento.trim().startsWith('<figure')) {
-  //           const imagenURL = fragmento.match(/src="([^"]*)"/)[1];
-  //           bloques.push({
-  //             tipo: 'imagen',
-  //             url: imagenURL
-  //           });
-  //         } 
-  //         // Si es texto, separar los párrafos y agregarlos como bloques individuales
-  //         else if (fragmento.trim()) {
-  //           // Separar los párrafos en bloques individuales
-  //           const parrafos = fragmento.split(/<\/p>/g).map(parrafo => parrafo.trim()).filter(parrafo => parrafo);
-  //           parrafos.forEach(parrafo => {
-  //             bloques.push({
-  //               tipo: 'texto',
-  //               contenido: parrafo + '</p>' // Volver a cerrar la etiqueta </p>
-  //             });
-  //           });
-  //         }
-  //       });
-  
-  //       return {
-  //         id: post.id,
-  //         titulo: post.title.rendered,
-  //         bloques, // Los bloques separados
-  //         imagenes: imagenesURLs // Las URLs de las imágenes extraídas
-  //       };
-  //     });
-  
-  //     // Guardar los posts en el estado
-  //     this.setState({ post: postDescargados });
-  //   } catch (error) {
-  //     console.error("Error descargando los posts:", error);
-  //   }
-  // };
-  
-  
-  
-  
-
-
-
-//la primera que funciono
-
-  // descargarPost = async () => {
-  //   try {
-  //     const response = await axios.get(process.env.REACT_APP_WP_POST);
-  //     const postDescargados = response.data.map(post => {
-  //       const contenidoHTML = post.content.rendered;
-  
-  //       // Obtener las imágenes y extraer las URLs del atributo srcset
-  //       const imagenes = contenidoHTML.match(/<img [^>]*srcset="([^"]*)"/g);
-  //       const imagenesURLs = imagenes ? imagenes.map(img => {
-  //         const srcset = img.match(/srcset="([^"]*)"/)[1];
-  //         return srcset.split(' ')[0]; // Guardar solo la primera URL
-  //       }) : [];
-  //       const textoSinEtiquetas = contenidoHTML
-  //       .replace(/<[^>]*>/g, "") // Eliminar todas las etiquetas HTML
-  //       .replace(/\n/g, "<br />"); // Reemplazar saltos de línea con <br />
-  
-  //       return {
-  //         id: post.id,
-  //         titulo: post.title.rendered,
-  //         contenido: textoSinEtiquetas, // El contenido limpio, sin etiquetas HTML
-  //         imagenes: imagenesURLs      // Las URLs de las imágenes extraídas
-  //       };
-  //     });
-  
-  //     // Guardar los posts en el estado
-  //     this.setState({ post: postDescargados });
-  //   } catch (error) {
-  //     console.error("Error descargando los posts:", error);
-  //   }
-  // };
-  
-  
   
   // Descargar la lista de productos
   productosDescargados = () => {
@@ -285,12 +183,11 @@ export class MyProvider extends Component {
     const usuario = userData ? userData : null;
 
     if (!usuario || !usuario.token) {
-      console.error('No se encontraron datos de usuario válidos o el token JWT no está presente.');
+      console.error('No se encontraron datos de usuario válidos');
       return;
     }
 
-    const decodedToken = jwtDecode(usuario.token);
-    const userId = decodedToken.data.user ? decodedToken.data.user.id : null;
+    const userId = usuario.usuario.id
 
     const lineItems = items.map(item => ({
       product_id: item.id,
