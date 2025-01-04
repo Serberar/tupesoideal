@@ -88,11 +88,11 @@ const Registro = () => {
           <input className='registroInput' type='text' name='city' />
         </div>
         <div className="registrocampo">
-          <label htmlFor="state">Región/Provincia</label>
+          <label htmlFor="state">Provincia</label>
           <input className='registroInput' type='text' name='state' required />
         </div>
         <div className="registrocampo">
-          <label htmlFor="state">código postal</label>
+          <label htmlFor="state">Código postal</label>
           <input className='registroInput' type='number' name='postcode' required />
         </div>
         <input className='registroBoton' type='submit' value='Registro' />

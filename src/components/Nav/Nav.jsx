@@ -12,7 +12,7 @@ const Enlaces = () => {
   const toggleMenu = () => {
     setMenuVisible(!menuVisible)
   }
-console.log('Datos de usuario', userData);
+// console.log('Datos de usuario', userData);
 
   const cerrarSesion = () => {
     localStorage.removeItem('userData')
@@ -66,7 +66,7 @@ console.log('Datos de usuario', userData);
          <ul className='usuario'>
          {usuario && (
             <li>
-              <p className='saludo'>Bienvenido {usuario.usuario.nombre}</p>
+              <p className='saludo'>Bienvenido {usuario.usuario.nombre} {usuario.usuario.apellidos}</p>
             </li>
           )}
           {usuario && (

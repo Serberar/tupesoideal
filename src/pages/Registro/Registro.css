@@ -1,5 +1,6 @@
 .registroContainer {
-    display: flex;
+  padding-top: 50px;
+  display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
