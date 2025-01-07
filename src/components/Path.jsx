@@ -5,6 +5,7 @@ import Carrito from '../pages/Carrito/Carrito'
 import Registro from '../pages/Registro/Registro'
 import Login from '../pages/Login/Login'
 import Cliente from '../pages/AreaCliente/AreaCliente'
+import Password from '../pages/Password/Password'
 
 function Path () {
   return (
@@ -16,6 +17,7 @@ function Path () {
         <Route path='/registro' element={<Registro />} />
         <Route path='/login' element={<Login />} />
         <Route path='/cliente' element={<Cliente />} />
+        <Route path='/password' element={<Password />} />
       </Routes>
     </div>
   )

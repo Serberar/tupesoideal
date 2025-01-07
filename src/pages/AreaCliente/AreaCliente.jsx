@@ -120,7 +120,7 @@ const AreaCliente = () => {
 
   const datosPrivados = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_WP_PRIVATE_LIST}${userData.usuario.id}`, {
+      const response = await axios.get(`${process.env.REACT_APP_WP_CUSTOM}/listar-privados?user_id=${userData.usuario.id}`, {
         headers: {
           'Authorization': `Bearer ${userData.token}`,
         }

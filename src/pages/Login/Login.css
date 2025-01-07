@@ -78,3 +78,74 @@
   .botonRegistroLogin:hover{
     background-color: #385236;
   }
+
+  .mensajeError{
+    margin-bottom: 20px;
+  }
+
+  .linkRestablecer {
+    color: #007bff; 
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  .linkRestablecer:hover {
+    color: #0056b3;
+  }
+  
+  .modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  .modal input {
+    margin-left: 10px;
+  }
+  
+  .modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative; 
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .modal button {
+    background-color: #618a5d;
+    color: white;
+    border: none;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .modal button:hover {
+    background-color: #385236;
+  }
+
+  .closeModal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;  
+    cursor: pointer;
+    color: #ff5c5c;  
+    font-weight: bold;  
+    transition: color 0.3s, transform 0.3s;  
+  }
+  
+  .closeModal:hover {
+    color: #ff0000;  
+    transform: scale(1.2); 
+  }
+  
+  
