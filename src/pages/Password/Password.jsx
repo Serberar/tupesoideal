@@ -10,7 +10,7 @@ const Password = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  // Obtener el reset token desde la URL (no es necesario user_id ahora)
+  // Obtener el reset token desde la URL 
   const resetToken = searchParams.get('reset');
 
   const handleSubmit = async (e) => {
@@ -28,13 +28,12 @@ const Password = () => {
 
     try {
       const response = await axios.post(`${process.env.REACT_APP_WP_CUSTOM}/update-password`, {
-        reset: resetToken,  // Enviar el token 'reset' en lugar de 'token' y 'user_id'
+        reset: resetToken, 
         password,
       });
 
       if (response.status === 200) {
         setMensaje(response.data.message || '¡Contraseña actualizada correctamente!');
-        // Redirigir a la página de inicio de sesión después de unos segundos
         setTimeout(() => navigate('/login'), 3000);
       } else {
         setMensaje(response.data.message || 'Ocurrió un error. Inténtalo nuevamente.');

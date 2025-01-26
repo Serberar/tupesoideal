@@ -11,7 +11,19 @@ export class MyProvider extends Component {
     items: [],
     subtotal: 0,
     userData: null,
-    post: []
+    mensajeContraseña:"",
+    post: [],
+    datosUsuario: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone: "",
+      address: "",
+      city: "",
+      state: "",
+      postcode: "",
+
+    },
   }
 
   // Descarga los productos y comprueba localStorage automáticamente al cargar la página
@@ -29,18 +41,140 @@ export class MyProvider extends Component {
     await this.productosDescargados();
     await this.descargarPost();
   }
+  /*******************Componente Area cliente ***************************************/
+  
+  //obtener los datos privados del cliente
+  obtenerDatosCliente = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API}/customers/${this.state.userData.usuario.id}`, {
+        auth: {
+          username: process.env.REACT_APP_USER,
+          password: process.env.REACT_APP_PASSWORD,
+        },
+      });
+      const datosUsuario = response.data;
+
+      this.setState({
+        datosUsuario: {
+          first_name: datosUsuario.first_name || "",
+          last_name: datosUsuario.last_name || "",
+          email: datosUsuario.email || "",
+          phone: datosUsuario.billing.phone || "",
+          address: datosUsuario.billing.address_1 || "",
+          city: datosUsuario.billing.city || "",
+          state: datosUsuario.billing.state || "",
+          postcode: datosUsuario.billing.postcode || "",
+        },
+      });
+    } catch (error) {
+      console.error("Error al obtener los datos del usuario:", error);
+    }
+  };
+
+  //guardar cambios en los datos de cliente 
+  guardarCambioDatosCliente = async (campo) => {
+    try {
+      const response = await axios.put(`${process.env.REACT_APP_API}/customers/${this.state.userData.usuario.id}`, campo, {
+        auth: {
+          username: process.env.REACT_APP_USER,
+          password: process.env.REACT_APP_PASSWORD,
+        },
+      });
+    } catch (error) {
+      console.error("Error al actualizar el dato:", error);
+    }
+  };
+
+  //descargar historico de pedidos del cliente
+  historicoPedidos = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API}/orders?customer=${this.state.userData.usuario.id}`, {
+        auth: {
+          username: process.env.REACT_APP_USER,
+          password: process.env.REACT_APP_PASSWORD
+        }
+      })
+      this.setState({ historicoPedidos: response.data });
+    } catch (error) {
+      console.error('error al descargar el historico de pedidos:', error);
+    }
+  }
+
+// Actualizar contraseña
+actualizarContraseña = async (currentPassword, newPassword) => {
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_WP_CUSTOM}/update-password`, 
+      {
+        current_password: currentPassword, 
+        password: newPassword
+      },
+      {
+        auth: {
+          username: this.state.userData.usuario?.user, 
+          password: currentPassword 
+        }
+      }
+    );
+
+    this.setState({
+      mensajeContraseña: response.data?.message || "Contraseña actualizada correctamente.",
+    });
+
+  } catch (error) {
+    this.setState({ mensajeContraseña: 'Error al realizar el cambio de contraseña' })
+    console.error('Error al realizar la solicitud:', error.response?.data || error.message);
+  }
+};
+
+   /*******************Componente Consulta ***************************************/
+
+  //descarga mensajes de customerArea
+  descargarDatosAreaPrivada = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_WP_CUSTOM}/listar-privados?user_id=${this.state.userData.usuario.id}`, {
+        headers: {
+          'Authorization': `Bearer ${this.state.userData.token}`,
+        }
+      })
+      this.setState({ datosPrivados: response.data });
+    } catch (error) {
+      console.error('Error al realizar la solicitud:', error);
+    }
+  }
+
+  //descarga los archivos de customerArea
+  descargarArchivoAreaPrivada = async (url) => {
+    try {
+      const response = await axios.get(url, {
+        auth: {
+          username: process.env.REACT_APP_USER,
+          password: process.env.REACT_APP_PASSWORD,
+        },
+        responseType: 'blob',
+      });
+
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(response.data);
+      a.download = this.state.datosPrivados?.archivos_privados[0]?.nombre_archivo || 'archivo';
+      a.click();
+    } catch (error) {
+      console.error('Error al intentar descargar el archivo:', error);
+    }
+  };
+
+   /*******************Componente Portada ***************************************/
 
   //descargar los textos de la web desde wordpress
-
   descargarPost = async () => {
     try {
       const response = await axios.get(process.env.REACT_APP_WP_POST);
       const postDescargados = response.data.map(post => {
         const contenidoHTML = post.content.rendered;
-  
+
         // Separar el contenido HTML en texto y figuras (imágenes)
         const fragmentoHTML = contenidoHTML.split(/(<figure class="wp-block-image[^>]*>.*?<\/figure>)/g);
-  
+
         const bloques = [];
         fragmentoHTML.forEach(fragmento => {
           // Si el fragmento es una imagen, agregarla al bloque
@@ -49,7 +183,7 @@ export class MyProvider extends Component {
             bloques.push({
               imagen: imagenURL
             });
-          } 
+          }
           // Si es texto, separar los párrafos y agregarlos como bloques individuales
           else if (fragmento.trim()) {
             // Separar los párrafos en bloques individuales, sin las etiquetas <p>
@@ -64,25 +198,25 @@ export class MyProvider extends Component {
             });
           }
         });
-  
+
         return {
           id: post.id,
           titulo: post.title.rendered,
           bloques // Solo bloques, ya que no necesitas `imagenes`
         };
       });
-  
+
       // Guardar los posts en el estado
       this.setState({ post: postDescargados });
     } catch (error) {
       console.error("Error descargando los posts:", error);
     }
   };
-  
+
   // Descargar la lista de productos
   productosDescargados = () => {
     axios({
-     method: 'get',
+      method: 'get',
       url: `${process.env.REACT_APP_API}/products`,
       auth: {
         username: process.env.REACT_APP_USER,
@@ -98,6 +232,8 @@ export class MyProvider extends Component {
         console.error('Error al realizar la solicitud:', error)
       })
   }
+
+   /*******************Componente Carrito ***************************************/
 
   // Añadir producto al carrito
   agregarAlCarrito = (producto) => {
@@ -200,7 +336,7 @@ export class MyProvider extends Component {
       line_items: lineItems
     };
 
-    console.log('Datos del pedido a enviar:', pedido)
+    // console.log('Datos del pedido a enviar:', pedido)
 
     try {
       const response = await axios.post(
@@ -234,7 +370,6 @@ export class MyProvider extends Component {
   }
 
   // actualizar cantidades del carrito
-
   actualizarCantidadEnCarrito = (updatedItems) => {
     this.setState({
       items: updatedItems
@@ -255,7 +390,13 @@ export class MyProvider extends Component {
         eliminarDelCarrito: this.eliminarDelCarrito,
         almacenarDatosUsuario: this.almacenarDatosUsuario,
         enviarPedido: this.enviarPedido,
-        actualizarCantidadEnCarrito: this.actualizarCantidadEnCarrito
+        actualizarCantidadEnCarrito: this.actualizarCantidadEnCarrito,
+        obtenerDatosCliente: this.obtenerDatosCliente,
+        guardarCambioDatosCliente: this.guardarCambioDatosCliente,
+        descargarDatosAreaPrivada: this.descargarDatosAreaPrivada,
+        descargarArchivoAreaPrivada: this.descargarArchivoAreaPrivada,
+        historicoPedidos: this.historicoPedidos,
+        actualizarContraseña: this.actualizarContraseña
       }}
       >
         {this.props.children}

@@ -6,6 +6,7 @@ import Registro from '../pages/Registro/Registro'
 import Login from '../pages/Login/Login'
 import Cliente from '../pages/AreaCliente/AreaCliente'
 import Password from '../pages/Password/Password'
+import Consulta from '../pages/Consulta/Consulta'
 
 function Path () {
   return (
@@ -18,6 +19,7 @@ function Path () {
         <Route path='/login' element={<Login />} />
         <Route path='/cliente' element={<Cliente />} />
         <Route path='/password' element={<Password />} />
+        <Route path='/consulta'  element={<Consulta />} />
       </Routes>
     </div>
   )

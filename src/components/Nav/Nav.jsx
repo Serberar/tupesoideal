@@ -12,7 +12,6 @@ const Enlaces = () => {
   const toggleMenu = () => {
     setMenuVisible(!menuVisible)
   }
-// console.log('Datos de usuario', userData);
 
   const cerrarSesion = () => {
     localStorage.removeItem('userData')
@@ -50,6 +49,11 @@ const Enlaces = () => {
           {usuario && (
             <li>
               <NavLink to='/cliente' onClick={cerrarMenu}>Área personal</NavLink>
+            </li>
+          )}
+          {usuario && (
+            <li>
+              <NavLink to='/consulta' onClick={cerrarMenu}>Consulta</NavLink>
             </li>
           )}
           {!usuario && (

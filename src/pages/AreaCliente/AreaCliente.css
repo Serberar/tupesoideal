@@ -1,6 +1,170 @@
-.clienteContainer {
-    margin: 0 auto;
-    padding: 80px;
-    font-family: Arial, sans-serif;
+
+/* General */
+.AreaClienteContainer {
+  font-family: 'Arial', sans-serif;
+  margin: 20px auto;
+  margin-top: 100px;
+  padding: 50px;
+  max-width: 800px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.seccionTitulo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 10px 15px;
+  background: #618a5d;
+  color: white;
+  border-radius: 8px;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.seccionTitulo:hover {
+  background: #385236;
+}
+
+.campoEditable,
+.campo {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.campoEditable label,
+.campo label {
+  font-weight: bold;
+  flex: 0 0 30%;
+}
+
+.campoEditable span,
+.campoEditable input,
+.campo input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.campoEditable input:focus,
+.campo input:focus {
+  outline: none;
+  border-color: #618a5d;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.guardarBtn,
+.cancelarBtn,
+.editarBtn,
+.cambiarContraseñaBtn {
+  background: #618a5d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-left: 10px;
+}
+
+.guardarBtn:hover,
+.cancelarBtn:hover,
+.editarBtn:hover,
+.cambiarContraseñaBtn:hover {
+  background: #0056b3;
+}
+
+.cancelarBtn {
+  background: #dc3545;
+}
+
+.cancelarBtn:hover {
+  background: #a71d2a;
+}
+
+/* Tablas */
+.tablaPedidos {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.tablaPedidos th,
+.tablaPedidos td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.tablaPedidos th {
+  background: #618a5d;
+  color: white;
+}
+
+.tablaPedidos tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.tablaPedidos tr:hover {
+  background: #f1f1f1;
+}
+
+/* Mensajes */
+.mensaje {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.mensaje.exito {
+  background: #d4edda;
+  color: #155724;
+}
+
+.mensaje.error {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* Secciones ocultables */
+.datosPersonalesContainer,
+.historicoPedidosContainer,
+.cambiarContraseñaContainer {
+  padding: 15px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .AreaClienteContainer {
+    padding: 10px;
   }
-  
+
+  .campoEditable,
+  .campo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .campoEditable label,
+  .campo label {
+    margin-bottom: 5px;
+    flex: none;
+  }
+
+  .guardarBtn,
+  .cancelarBtn {
+    margin: 10px 0 0 0;
+  }
+}
