@@ -127,42 +127,6 @@ actualizarContraseña = async (currentPassword, newPassword) => {
   }
 };
 
-   /*******************Componente Consulta ***************************************/
-
-  //descarga mensajes de customerArea
-  descargarDatosAreaPrivada = async () => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_WP_CUSTOM}/listar-privados?user_id=${this.state.userData.usuario.id}`, {
-        headers: {
-          'Authorization': `Bearer ${this.state.userData.token}`,
-        }
-      })
-      this.setState({ datosPrivados: response.data });
-    } catch (error) {
-      console.error('Error al realizar la solicitud:', error);
-    }
-  }
-
-  //descarga los archivos de customerArea
-  descargarArchivoAreaPrivada = async (url) => {
-    try {
-      const response = await axios.get(url, {
-        auth: {
-          username: process.env.REACT_APP_USER,
-          password: process.env.REACT_APP_PASSWORD,
-        },
-        responseType: 'blob',
-      });
-
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(response.data);
-      a.download = this.state.datosPrivados?.archivos_privados[0]?.nombre_archivo || 'archivo';
-      a.click();
-    } catch (error) {
-      console.error('Error al intentar descargar el archivo:', error);
-    }
-  };
-
    /*******************Componente Portada ***************************************/
 
   //descargar los textos de la web desde wordpress

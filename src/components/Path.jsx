@@ -7,6 +7,8 @@ import Login from '../pages/Login/Login'
 import Cliente from '../pages/AreaCliente/AreaCliente'
 import Password from '../pages/Password/Password'
 import Consulta from '../pages/Consulta/Consulta'
+import Citas from '../pages/Citas/Citas'
+
 
 function Path () {
   return (
@@ -20,6 +22,7 @@ function Path () {
         <Route path='/cliente' element={<Cliente />} />
         <Route path='/password' element={<Password />} />
         <Route path='/consulta'  element={<Consulta />} />
+        <Route path='/citas'  element={<Citas />} />
       </Routes>
     </div>
   )

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { myContext } from '../Context'
 import './Nav.css'
 
@@ -8,6 +8,7 @@ const Enlaces = () => {
   const { userData } = state
   const usuario = userData ? userData : null;
   const [menuVisible, setMenuVisible] = useState(false)
+  const navigate = useNavigate()
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible)
@@ -18,6 +19,7 @@ const Enlaces = () => {
     localStorage.removeItem('carrito')
     almacenarDatosUsuario(null)
     actualizarCantidadEnCarrito([])
+    navigate('/')
   }
 
   const cerrarMenu = () => {
@@ -54,6 +56,11 @@ const Enlaces = () => {
           {usuario && (
             <li>
               <NavLink to='/consulta' onClick={cerrarMenu}>Consulta</NavLink>
+            </li>
+          )}
+          {usuario && (
+            <li>
+              <NavLink to='/citas' onClick={cerrarMenu}>Citas</NavLink>
             </li>
           )}
           {!usuario && (

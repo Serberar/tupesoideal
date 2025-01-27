@@ -54,7 +54,7 @@
 .campo input:focus {
   outline: none;
   border-color: #618a5d;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  box-shadow: 0 0 5px #385236;
 }
 
 .guardarBtn,
@@ -75,7 +75,7 @@
 .cancelarBtn:hover,
 .editarBtn:hover,
 .cambiarContraseñaBtn:hover {
-  background: #0056b3;
+  background: #385236;
 }
 
 .cancelarBtn {
