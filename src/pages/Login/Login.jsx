@@ -54,25 +54,25 @@ const Login = () => {
   };
 
   return (
-    <div className="loginContainer">
-      <form className="loginFormulario" onSubmit={autenticarUsuario}>
+    <div className="loginContainer_login">
+      <form className="loginFormulario_login" onSubmit={autenticarUsuario}>
         <h1>Identifícate</h1>
 
-        <div className="logincampo">
+        <div className="logincampo_login">
           <label htmlFor="correo">Correo electrónico</label>
-          <input className="loginInput" type="text" name="correo" />
+          <input className="loginInput_login" type="text" name="correo" />
         </div>
-        <div className="logincampo">
+        <div className="logincampo_login">
           <label htmlFor="contraseña">Contraseña</label>
-          <input className="loginInput" type="password" name="contraseña" />
+          <input className="loginInput_login" type="password" name="contraseña" />
         </div>
 
         {mensajeError && (
-          <div className="mensajeError">
+          <div className="mensajeError_login">
             <p>{mensajeError}</p>
 
             <span
-              className="linkRestablecer"
+              className="linkRestablecer_login"
               onClick={() => setModalAbierto(true)}
             >
               ¿Olvidaste tu contraseña?
@@ -81,19 +81,19 @@ const Login = () => {
           </div>
         )}
 
-        <input className="loginBoton" type="submit" value="Entra" />
-        <div className="enlaceRegistro">
+        <input className="loginBoton_login" type="submit" value="Entra" />
+        <div className="enlaceRegistro_login">
           No estás registrado? Regístrate aquí
           <Link to="/registro">
-            <button className="botonRegistroLogin">Regístrate</button>
+            <button className="botonRegistroLogin_login">Regístrate</button>
           </Link>
         </div>
       </form>
 
       {/* Modal */}
       {modalAbierto && (
-        <div className="modalOverlay">
-          <div className="modal">
+        <div className="modalOverlay_login">
+          <div className="modal_login">
             <h2>Restablecer contraseña</h2>
             <form onSubmit={enviarCorreo}>
               <div>
@@ -118,7 +118,7 @@ const Login = () => {
               </p>
             )}
             <span
-              className="closeModal"
+              className="closeModal_login"
               onClick={() => { setModalAbierto(false); setMensajeModal(''); }}
             >
               &times; {/* Esto es el símbolo de la "X" */}

@@ -1,0 +1,181 @@
+.calendario {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+  }
+
+    .componente-citas {
+        margin-top: 100px;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+      }
+      
+      .numeroSesionesDiv {
+        background-color: #3e7940; /* Color de fondo verde */
+        color: white; /* Texto blanco */
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      
+      .numeroSesiones {
+        margin: 0; /* Eliminar márgenes */
+      }
+      
+      .mensaje-no-sesiones {
+        color: #e74c3c;
+        font-size: 1rem;
+        margin-top: 10px;
+      }
+      
+      .citas-asignadas {
+        margin-top: 40px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #eaeee8; /* Fondo suave para que resalte */
+        border-radius: 10px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+      }
+      
+      .tituloCitasAsignadas {
+        font-size: 36px; /* Letras más grandes */
+        color: #2d6a4f; /* Color verde oscuro para destacar */
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      
+      .citas-asignadas {
+        margin-top: 40px;
+        padding: 30px; /* Más padding para separar las citas */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #eaeee8; /* Fondo suave para que resalte */
+        border-radius: 10px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+      }
+      
+      .tituloCitasAsignadas {
+        font-size: 36px; /* Letras más grandes */
+        color: #2d6a4f; /* Color verde oscuro para destacar */
+        font-weight: bold;
+        margin-bottom: 30px; /* Más espacio entre el título y las citas */
+        text-align: center;
+      }
+      
+      .citaAsignada {
+        background-color: #ffffff;
+        padding: 25px; /* Más espacio dentro de cada cita */
+        margin: 20px 0; /* Mayor margen entre citas */
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        width: 80%;
+        max-width: 700px;
+        text-align: center;
+        font-size: 20px; /* Texto más grande */
+        color: #3e7940; /* Verde para que se vea limpio */
+        font-weight: bold;
+      }
+      
+      .citaAsignada p {
+        margin: 0;
+        margin-bottom: 20px;
+      }
+      
+      .textoExplicativo {
+        font-size: 18px; /* Aumentamos el tamaño del texto explicativo */
+        color: #333;
+        margin-top: 100px; /* Más espacio encima del texto */
+        text-align: center;
+        line-height: 1.5; /* Aumentamos el interlineado para mejorar la legibilidad */
+      }
+      
+      .textoExplicativo strong {
+        font-weight: bold;
+        color: #3e7940; /* Resaltar la palabra "consulta" en verde */
+      }
+      
+      
+
+
+
+     .citas-disponibles {
+        margin-top: 20px;
+      }
+      
+       .citas-disponibles h2 {
+        font-size: 1.5rem;
+        color: #2c3e50;
+      }
+
+      .citas-disponibles .citas-mes {
+        margin-top: 10px;
+      }
+      
+      .citas-disponibles .cita-disponible {
+        padding: 15px;
+        background-color: #f0f0f0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      
+      .citas-disponibles .cita-disponible:hover {
+        background-color: #dfe6e9;
+      }
+      
+      .modal {
+        position: fixed; /* Fijar el modal en la pantalla */
+        top: 0;
+        left: 0;
+        width: 100vw; /* Asegura que el modal ocupe el 100% del ancho de la ventana */
+        height: 100vh; /* Asegura que el modal ocupe el 100% de la altura de la ventana */
+        background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente más oscuro */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        overflow: hidden; /* Evitar que el contenido del modal se desborde */
+      }
+      
+      .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 80%; /* Ocupa el 80% del ancho de la pantalla */
+        max-width: 600px; /* Tamaño máximo de 600px */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra más visible */
+        text-align: center;
+        overflow-y: auto; /* Permite que el contenido sea desplazable si es muy largo */
+      }
+      
+      .btn-confirmar, .btn-cancelar {
+        padding: 10px 20px;
+        margin: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      
+      .btn-confirmar {
+        background-color: #3e7940; /* Verde */
+        color: white;
+        border: none;
+      }
+      
+      .btn-cancelar {
+        background-color: #c04138; /* Rojo */
+        color: white;
+        border: none;
+      }
+      
+      

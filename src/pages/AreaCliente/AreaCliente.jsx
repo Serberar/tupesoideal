@@ -88,6 +88,7 @@ const AreaCliente = () => {
 
   return (
     <div className="AreaClienteContainer">
+    <h1>Área Personal</h1>
       <h3 onClick={() => mostrarSeccion('datosPersonales')} className="seccionTitulo">
         Datos Personales {seccionesAbiertas.datosPersonales ? '-' : '+'}
       </h3>

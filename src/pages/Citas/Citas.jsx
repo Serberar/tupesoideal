@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { myContext } from '../../components/Context';
 import axios from 'axios';
+import './Citas.css';
 
 const ComponenteCitas = () => {
   const [disponibles, setDisponibles] = useState([]);
@@ -97,7 +98,7 @@ const ComponenteCitas = () => {
     })
       .then(response => {
         console.log('Sesión reducida correctamente');
-        sesionesRestantes();
+        window.location.reload(); 
       })
       .catch(error => {
         console.error('Error al reducir la sesión:', error);
@@ -142,39 +143,51 @@ const ComponenteCitas = () => {
   };
 
   return (
-    <div>
+    <div className="componente-citas">
       <h1>Gestión de citas</h1>
       <div className='numeroSesionesDiv'>
         <p className='numeroSesiones'>Te quedan {restantes} sesiones disponibles</p>
       </div>
 
+     {/* Mostrar citas asignadas solo si no se están mostrando las citas disponibles */}
+{citasAsignadas.length > 0 && citasDisponibles.length === 0 && (
+  <div className="citas-asignadas">
+    <h2 className="tituloCitasAsignadas">Tu siguiente cita</h2>
+    
+    {citasAsignadas.map(cita => (
+      <div key={`${cita.mes}-${cita.dia}`} className="citaAsignada">
+        <p className="textoCitaAsignada">{`Día ${cita.dia} de ${cita.mes}, de ${cita.cita.desde} a ${cita.cita.hasta}`}</p>
+        {/* Agregar texto explicativo aquí */}
+        <p className="textoExplicativo">
+        El día de la sesión, podrás acceder al enlace de la reunión en el apartado <strong>Consulta</strong>.
+        </p>
+      </div>
+    ))}
+  </div>
+)}
+
+
+      
       {/* Mostrar mensaje si no hay sesiones restantes */}
       {restantes === 0 ? (
-        <p>No tienes sesiones disponibles. Por favor, compra un bono para obtener más citas.</p>
+        <p className="mensaje-no-sesiones">No tienes sesiones disponibles. Por favor, compra un bono para obtener más citas.</p>
       ) : (
         // Solo mostrar las citas disponibles si no tiene citas asignadas
         citasAsignadas.length === 0 && (
-          <div>
+          <div className="citas-disponibles">
             <h2>Citas disponibles</h2>
             {Object.keys(OrdenarCitasMeses()).map(mes => (
-              <div key={mes}>
+              <div key={mes} className="citas-mes">
                 <h3>{mes}</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '10px' }}>
+                <div className="calendario">
                   {OrdenarCitasMeses()[mes].map((cita, index) => (
                     <button
                       key={`${mes}-${cita.dia}-${cita.desde}-${cita.hasta}-${index}`} // Añadimos el índice para hacerlo único
                       onClick={() => {
                         setSelectedCita(cita);
-                        setShowConfirmModal(true); // Mostrar el modal de confirmación
+                        setShowConfirmModal(true);
                       }}
-                      style={{
-                        padding: '10px',
-                        backgroundColor: '#f0f0f0',
-                        border: '1px solid #ddd',
-                        borderRadius: '5px',
-                        textAlign: 'center',
-                        cursor: 'pointer',
-                      }}
+                      className="cita-disponible"
                     >
                       Día {cita.dia} <br />
                       desde {cita.desde} <br />
@@ -189,26 +202,14 @@ const ComponenteCitas = () => {
         )
       )}
 
-      {/* Mostrar citas asignadas */}
-      <h2>Citas asignadas</h2>
-      {citasAsignadas.length > 0 ? (
-        citasAsignadas.map(cita => (
-          <div key={`${cita.mes}-${cita.dia}`}>
-            <p>{`Día ${cita.dia} de ${cita.mes}, de ${cita.cita.desde} a ${cita.cita.hasta}, Usuarios: ${cita.cita.usuarios}`}</p>
-          </div>
-        ))
-      ) : (
-        <p>No tienes citas asignadas.</p>
-      )}
-
       {/* Modal de confirmación */}
       {showConfirmModal && selectedCita && (
         <div className="modal">
           <div className="modal-content">
             <h3>Confirmar cita</h3>
             <p>¿Estás seguro de que quieres asignar la cita para el día {selectedCita.dia}?</p>
-            <button onClick={asignarCita}>Confirmar</button>
-            <button onClick={() => setShowConfirmModal(false)}>Cancelar</button>
+            <button className="btn-confirmar" onClick={asignarCita}>Confirmar</button>
+            <button className="btn-cancelar" onClick={() => setShowConfirmModal(false)}>Cancelar</button>
           </div>
         </div>
       )}

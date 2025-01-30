@@ -1,151 +1,146 @@
-.loginContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f2f2f2;
-  }
-  
-  .loginFormulario {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    width: 60vw;
-    text-align: center;
-  }
-  
-  .loginFormulario h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .logincampo {
-    margin-bottom: 15px;
-  }
-  
-  .logincampo label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .loginInput {
-    width: 95%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
+.loginContainer_login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f2f2f2;
+}
 
-  .mensajeError {
-    color: red;
-    margin-top: 10px;
-    font-size: 14px;
-  }
-  
-  .loginBoton {
-    width: 97%;
-    padding: 10px;
-    background-color: #618a5d;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .loginBoton:hover {
-    background-color: #385236;
-  }
-   
-  .enlaceRegistro{
-    margin-top: 20px;
-  }
-  
-  .botonRegistroLogin{
-    width: 97%;
-    margin: 10px;
-    padding: 10px;
-    background-color: #618a5d;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .botonRegistroLogin:hover{
-    background-color: #385236;
-  }
+.loginFormulario_login {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 60vw;
+  text-align: center;
+}
 
-  .mensajeError{
-    margin-bottom: 20px;
-  }
+.loginTitulo_login {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
 
-  .linkRestablecer {
-    color: #007bff; 
-    cursor: pointer;
-    text-decoration: underline;
-  }
-  
-  .linkRestablecer:hover {
-    color: #0056b3;
-  }
-  
-  .modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-  }
-  .modal input {
-    margin-left: 10px;
-  }
-  
-  .modal {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    position: relative; 
-    max-width: 400px;
-    width: 100%;
-  }
-  
-  .modal button {
-    background-color: #618a5d;
-    color: white;
-    border: none;
-    margin: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .modal button:hover {
-    background-color: #385236;
-  }
+.logincampo_login {
+  margin-bottom: 15px;
+}
 
-  .closeModal {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 30px;  
-    cursor: pointer;
-    color: #ff5c5c;  
-    font-weight: bold;  
-    transition: color 0.3s, transform 0.3s;  
-  }
-  
-  .closeModal:hover {
-    color: #ff0000;  
-    transform: scale(1.2); 
-  }
-  
-  
+.logincampo_login label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.loginInput_login {
+  width: 95%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.mensajeError_login {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.loginBoton_login {
+  width: 97%;
+  padding: 10px;
+  background-color: #618a5d;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.loginBoton_login:hover {
+  background-color: #385236;
+}
+
+.enlaceRegistro_login {
+  margin-top: 20px;
+}
+
+.botonRegistroLogin_login {
+  width: 97%;
+  margin: 10px;
+  padding: 10px;
+  background-color: #618a5d;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.botonRegistroLogin_login:hover {
+  background-color: #385236;
+}
+
+.mensajeError_login {
+  margin-bottom: 20px;
+}
+
+.linkRestablecer_login {
+  color: #007bff; 
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.linkRestablecer_login:hover {
+  color: #0056b3;
+}
+
+.modalOverlay_login {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal_login {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  position: relative; 
+  max-width: 400px;
+  width: 100%;
+}
+
+.modal_login button {
+  background-color: #618a5d;
+  color: white;
+  border: none;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal_login button:hover {
+  background-color: #385236;
+}
+
+.closeModal_login {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;  
+  cursor: pointer;
+  color: #ff5c5c;  
+  font-weight: bold;  
+  transition: color 0.3s, transform 0.3s;  
+}
+
+.closeModal_login:hover {
+  color: #ff0000;  
+  transform: scale(1.2); 
+}
