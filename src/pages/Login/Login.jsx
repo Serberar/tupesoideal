@@ -1,61 +1,35 @@
-import React, { useContext, useState } from 'react';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { myContext } from '../../components/Context';
+import useLogin from './useLogin';
 import './Login.css';
 
 const Login = () => {
-  const { almacenarDatosUsuario } = useContext(myContext);
-  const [mensajeError, setMensajeError] = useState('');
-  const [modalAbierto, setModalAbierto] = useState(false);
-  const [email, setEmail] = useState('');
-  const [mensajeModal, setMensajeModal] = useState('');
   const navigate = useNavigate();
+  const {
+    mensajeError,
+    modalAbierto,
+    setModalAbierto,
+    email,
+    setEmail,
+    mensajeModal,
+    autenticarUsuario,
+    enviarCorreo,
+  } = useLogin();
 
-  const autenticarUsuario = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
     const correo = e.target.correo.value;
     const contraseña = e.target.contraseña.value;
-    try {
-      const response = await axios.post(`${process.env.REACT_APP_WP_URL_USER}`, {
-        username: correo,
-        password: contraseña,
-      });
-
-      if (response.status === 200 && response.data.token) {
-        almacenarDatosUsuario(response.data);
-        navigate('/');
-      }
-    } catch (error) {
-      console.error('Error al autenticar al usuario');
-      setMensajeError('Error al validar los datos. Vuelve a intentarlo.');
-    }
+    autenticarUsuario(correo, contraseña, () => navigate('/'));
   };
 
-  const enviarCorreo = async (e) => {
+  const handleEnviarCorreo = (e) => {
     e.preventDefault();
-    setMensajeModal('');
-    try {
-      const response = await axios.post(`${process.env.REACT_APP_WP_CUSTOM}/reset-password`, {
-        email,
-      });
-
-      if (response.status === 200) {
-        setMensajeModal(response.data.message);
-        setEmail('');
-      } else {
-        setMensajeModal(response.data.message || 'Ocurrió un error. Inténtalo de nuevo.');
-      }
-    } catch (error) {
-      console.error(error);
-      setMensajeModal('Error al enviar el correo. Inténtalo nuevamente.');
-    }
+    enviarCorreo(email);
   };
 
   return (
     <div className="loginContainer_login">
-      <form className="loginFormulario_login" onSubmit={autenticarUsuario}>
+      <form className="loginFormulario_login" onSubmit={handleSubmit}>
         <h1>Identifícate</h1>
 
         <div className="logincampo_login">
@@ -90,12 +64,11 @@ const Login = () => {
         </div>
       </form>
 
-      {/* Modal */}
       {modalAbierto && (
         <div className="modalOverlay_login">
           <div className="modal_login">
             <h2>Restablecer contraseña</h2>
-            <form onSubmit={enviarCorreo}>
+            <form onSubmit={handleEnviarCorreo}>
               <div>
                 <label htmlFor="email">Correo electrónico:</label>
                 <input
@@ -119,11 +92,10 @@ const Login = () => {
             )}
             <span
               className="closeModal_login"
-              onClick={() => { setModalAbierto(false); setMensajeModal(''); }}
+              onClick={() => { setModalAbierto(false); }}
             >
-              &times; {/* Esto es el símbolo de la "X" */}
+              &times;
             </span>
-
           </div>
         </div>
       )}

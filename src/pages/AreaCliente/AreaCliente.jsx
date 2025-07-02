@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { myContext } from '../../components/Context';
-import CampoEditable from '../../hooks/CampoEditable';
+import CampoEditable from './CampoEditable';
 import './AreaCliente.css';
 
 const AreaCliente = () => {

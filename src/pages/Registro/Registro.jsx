@@ -1,16 +1,13 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import useRegistro from './useRegistro';
 import './Registro.css';
-import { useNavigate } from 'react-router-dom';
 
 const Registro = () => {
-  const navigate = useNavigate();
-  const [mensajeError, setMensajeError] = useState('');
+  const { mensajeError, registrarUsuario } = useRegistro();
 
-  const registrarUsuario = async (e) => {
+  const manejarEnvio = (e) => {
     e.preventDefault();
 
-    const formData = {
+    const datosFormulario = {
       username: e.target.first_name.value + " " + e.target.last_name.value,
       password: e.target.password.value,
       email: e.target.email.value,
@@ -28,35 +25,12 @@ const Registro = () => {
       }
     };
 
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API}/customers`,
-        formData,
-        {
-          auth: {
-            username: process.env.REACT_APP_USER,
-            password: process.env.REACT_APP_PASSWORD,
-          },
-        }
-      );
-      if (response.status === 200 || 201) {
-        navigate('/login');
-      } else {
-        setMensajeError('Error en el registro, por favor intente nuevamente.');
-      }
-    } catch (error) {
-      if (error.response?.data?.message) {
-        setMensajeError(error.response.data.message);
-      } else {
-        setMensajeError('Ha ocurrido un error inesperado. Inténtalo de nuevo más tarde.');
-      }
-      console.error('Error al registrar el usuario');
-    }
+    registrarUsuario(datosFormulario);
   };
 
   return (
     <div className='registroContainer'>
-      <form className='registroFormulario' onSubmit={registrarUsuario}>
+      <form className='registroFormulario' onSubmit={manejarEnvio}>
         <h1>Registro de usuario</h1>
         {mensajeError && <p className="mensajeError">{mensajeError}</p>}
         <div className='registrocampo'>
@@ -92,7 +66,7 @@ const Registro = () => {
           <input className='registroInput' type='text' name='state' required />
         </div>
         <div className="registrocampo">
-          <label htmlFor="state">Código postal</label>
+          <label htmlFor="postcode">Código postal</label>
           <input className='registroInput' type='number' name='postcode' required />
         </div>
         <input className='registroBoton' type='submit' value='Registro' />
