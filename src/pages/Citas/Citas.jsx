@@ -11,8 +11,6 @@ const ComponenteCitas = () => {
   const [selectedCita, setSelectedCita] = useState(null);
   const { state } = useContext(myContext);
 
-  console.log(restantes);
-
   useEffect(() => {
     if (state.userData && state.userData.usuario && state.userData.usuario.id) {
       sesionesRestantes();
@@ -46,7 +44,7 @@ const ComponenteCitas = () => {
   const sesionesRestantes = () => {
     axios({
       method: 'get',
-      url: `http://localhost/wordpress/wp-json/control_sesiones/v1/obtener-sesiones?user_id=${state.userData.usuario.id}`,
+      url: `${process.env.REACT_APP_PLUGIN_SESIONES}/obtener-sesiones?user_id=${state.userData.usuario.id}`,
       auth: {
         username: process.env.REACT_APP_USER,
         password: process.env.REACT_APP_PASSWORD,
@@ -70,7 +68,7 @@ const ComponenteCitas = () => {
   const getCitasAsignadas = (userId) => {
     axios({
       method: 'get',
-      url: `http://localhost/wordpress/wp-json/citas/v1/asignadas/${userId}`,
+      url: `${process.env.REACT_APP_PLUGIN_CITAS}/asignadas/${userId}`,
       auth: {
         username: process.env.REACT_APP_USER,
         password: process.env.REACT_APP_PASSWORD,
@@ -87,7 +85,7 @@ const ComponenteCitas = () => {
   const reducirSesion = () => {
     axios({
       method: 'post',
-      url: 'http://localhost/wordpress/wp-json/control_sesiones/v1/reducir-sesion',
+      url: `${process.env.REACT_APP_PLUGIN_SESIONES}/reducir-sesion`,
       auth: {
         username: process.env.REACT_APP_USER,
         password: process.env.REACT_APP_PASSWORD,
@@ -98,7 +96,7 @@ const ComponenteCitas = () => {
     })
       .then(response => {
         console.log('Sesión reducida correctamente');
-        window.location.reload(); 
+        window.location.reload();
       })
       .catch(error => {
         console.error('Error al reducir la sesión:', error);
@@ -116,7 +114,7 @@ const ComponenteCitas = () => {
     console.log('Cita seleccionada:', cita);
     axios({
       method: 'post',
-      url: 'http://localhost/wordpress/wp-json/citas/v1/asignar/',
+      url: `${process.env.REACT_APP_PLUGIN_CITAS}/asignar/`,
       data: cita,
     })
       .then(response => {
@@ -149,25 +147,25 @@ const ComponenteCitas = () => {
         <p className='numeroSesiones'>Te quedan {restantes} sesiones disponibles</p>
       </div>
 
-     {/* Mostrar citas asignadas solo si no se están mostrando las citas disponibles */}
-{citasAsignadas.length > 0 && citasDisponibles.length === 0 && (
-  <div className="citas-asignadas">
-    <h2 className="tituloCitasAsignadas">Tu siguiente cita</h2>
-    
-    {citasAsignadas.map(cita => (
-      <div key={`${cita.mes}-${cita.dia}`} className="citaAsignada">
-        <p className="textoCitaAsignada">{`Día ${cita.dia} de ${cita.mes}, de ${cita.cita.desde} a ${cita.cita.hasta}`}</p>
-        {/* Agregar texto explicativo aquí */}
-        <p className="textoExplicativo">
-        El día de la sesión, podrás acceder al enlace de la reunión en el apartado <strong>Consulta</strong>.
-        </p>
-      </div>
-    ))}
-  </div>
-)}
+      {/* Mostrar citas asignadas solo si no se están mostrando las citas disponibles */}
+      {citasAsignadas.length > 0 && citasDisponibles.length === 0 && (
+        <div className="citas-asignadas">
+          <h2 className="tituloCitasAsignadas">Tu siguiente cita</h2>
+
+          {citasAsignadas.map(cita => (
+            <div key={`${cita.mes}-${cita.dia}`} className="citaAsignada">
+              <p className="textoCitaAsignada">{`Día ${cita.dia} de ${cita.mes}, de ${cita.cita.desde} a ${cita.cita.hasta}`}</p>
+              {/* Agregar texto explicativo aquí */}
+              <p className="textoExplicativo">
+                El día de la sesión, podrás acceder al enlace de la reunión en el apartado <strong>Consulta</strong>.
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
 
 
-      
+
       {/* Mostrar mensaje si no hay sesiones restantes */}
       {restantes === 0 ? (
         <p className="mensaje-no-sesiones">No tienes sesiones disponibles. Por favor, compra un bono para obtener más citas.</p>

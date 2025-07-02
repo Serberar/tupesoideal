@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { myContext } from '../../components/Context';
+import CampoEditable from '../../hooks/CampoEditable';
 import './AreaCliente.css';
 
 const AreaCliente = () => {
-  const { state, obtenerDatosCliente, guardarCambioDatosCliente, historicoPedidos, actualizarContraseña } = useContext(myContext);
+  const { state, obtenerDatosCliente, guardarCambioDatosCliente, historicoPedidos, cambioContraseña } = useContext(myContext);
   const [editandoCampo, setEditandoCampo] = useState("");
   const [datos, setDatos] = useState(state.datosUsuario);
   const [seccionesAbiertas, setSeccionesAbiertas] = useState({});
-  const [mensaje, setMensaje] = useState(state.mensajeContraseña);
+  const [mensajeContraseña, setMensajeContraseña] = useState(state.mensajeContraseña);
 
   useEffect(() => {
     if (state.userData) {
@@ -17,7 +18,7 @@ const AreaCliente = () => {
   }, [state.userData, obtenerDatosCliente, historicoPedidos]);
 
   useEffect(() => {
-    setMensaje(state.mensajeContraseña);
+    setMensajeContraseña(state.mensajeContraseña);
     setDatos(state.datosUsuario);
   }, [state.datosUsuario, state.mensajeContraseña]);
 
@@ -41,68 +42,98 @@ const AreaCliente = () => {
     setEditandoCampo("");
   };
 
-  const manejarCambioContraseña = async (e) => {
-    e.preventDefault();
-    const currentPassword = e.target.currentPassword.value;
-    const newPassword = e.target.newPassword.value;
-    const confirmPassword = e.target.confirmPassword.value;
-
-    if (newPassword !== confirmPassword) {
-      setMensaje("Las contraseñas nuevas no coinciden.");
-      return;
-    }
-    actualizarContraseña(currentPassword, newPassword);
-    e.target.reset();
-  };
-
-
-
-  const CampoEditable = ({ label, name, type = "text" }) => (
-    <div className="campoEditable">
-      <label>{label}:</label>
-      {editandoCampo === name ? (
-        <>
-          <input
-            type={type}
-            name={name}
-            value={datos[name] || ""}
-            onChange={manejarCambios}
-          />
-          <button className="guardarBtn" onClick={guardarCambio}>
-            Guardar
-          </button>
-          <button className="cancelarBtn" onClick={() => setEditandoCampo("")}>
-            Cancelar
-          </button>
-        </>
-      ) : (
-        <>
-          <span>{datos[name] || "No disponible"}</span>
-          <button className="editarBtn" onClick={() => setEditandoCampo(name)}>
-            Editar
-          </button>
-        </>
-      )}
-    </div>
-  );
-
   return (
     <div className="AreaClienteContainer">
-    <h1>Área Personal</h1>
+      <h1>Área Personal</h1>
       <h3 onClick={() => mostrarSeccion('datosPersonales')} className="seccionTitulo">
         Datos Personales {seccionesAbiertas.datosPersonales ? '-' : '+'}
       </h3>
       {seccionesAbiertas.datosPersonales && (
         <div className="datosPersonalesContainer">
           <h2>Editar Datos Personales</h2>
-          <CampoEditable label="Nombre" name="first_name" />
-          <CampoEditable label="Apellido" name="last_name" />
-          <CampoEditable label="Correo Electrónico" name="email" type="email" />
-          <CampoEditable label="Teléfono" name="phone" type="number" />
-          <CampoEditable label="Dirección" name="address" />
-          <CampoEditable label="Ciudad" name="city" />
-          <CampoEditable label="Población" name="state" />
-          <CampoEditable label="Código Postal" name="postcode" type="number" />
+          <CampoEditable
+            label="Nombre"
+            name="first_name"
+            valor={datos.first_name}
+            enEdicion={editandoCampo === 'first_name'}
+            onCambiar={manejarCambios}
+            onGuardar={guardarCambio}
+            onCancelar={() => setEditandoCampo('')}
+            onEditar={(campo) => setEditandoCampo(campo)}
+          />
+          <CampoEditable
+            label="Apellido"
+            name="last_name"
+            valor={datos.last_name}
+            enEdicion={editandoCampo === 'last_name'}
+            onCambiar={manejarCambios}
+            onGuardar={guardarCambio}
+            onCancelar={() => setEditandoCampo('')}
+            onEditar={(campo) => setEditandoCampo(campo)}
+          />
+          <CampoEditable
+            label="Correo Electrónico"
+            name="email"
+            type="email"
+            valor={datos.email}
+            enEdicion={editandoCampo === 'email'}
+            onCambiar={manejarCambios}
+            onGuardar={guardarCambio}
+            onCancelar={() => setEditandoCampo('')}
+            onEditar={(campo) => setEditandoCampo(campo)}
+          />
+          <CampoEditable
+            label="Teléfono"
+            name="phone"
+            type="number"
+            valor={datos.phone}
+            enEdicion={editandoCampo === 'phone'}
+            onCambiar={manejarCambios}
+            onGuardar={guardarCambio}
+            onCancelar={() => setEditandoCampo('')}
+            onEditar={(campo) => setEditandoCampo(campo)}
+          />
+          <CampoEditable
+            label="Dirección"
+            name="address"
+            valor={datos.address}
+            enEdicion={editandoCampo === 'address'}
+            onCambiar={manejarCambios}
+            onGuardar={guardarCambio}
+            onCancelar={() => setEditandoCampo('')}
+            onEditar={(campo) => setEditandoCampo(campo)}
+          />
+          <CampoEditable
+            label="Ciudad"
+            name="city"
+            valor={datos.city}
+            enEdicion={editandoCampo === 'city'}
+            onCambiar={manejarCambios}
+            onGuardar={guardarCambio}
+            onCancelar={() => setEditandoCampo('')}
+            onEditar={(campo) => setEditandoCampo(campo)}
+          />
+          <CampoEditable
+            label="Población"
+            name="state"
+            valor={datos.state}
+            enEdicion={editandoCampo === 'state'}
+            onCambiar={manejarCambios}
+            onGuardar={guardarCambio}
+            onCancelar={() => setEditandoCampo('')}
+            onEditar={(campo) => setEditandoCampo(campo)}
+          />
+          <CampoEditable
+            label="Código Postal"
+            name="postcode"
+            type="number"
+            valor={datos.postcode}
+            enEdicion={editandoCampo === 'postcode'}
+            onCambiar={manejarCambios}
+            onGuardar={guardarCambio}
+            onCancelar={() => setEditandoCampo('')}
+            onEditar={(campo) => setEditandoCampo(campo)}
+          />
         </div>
       )}
 
@@ -114,7 +145,7 @@ const AreaCliente = () => {
           {state.historicoPedidos?.length === 0 ? (
             <p className="mensajeNoPedidos">No tienes pedidos registrados</p>
           ) : (
-            <table className="tablaPedidos">
+            <table className="tablaPedidos"> 
               <thead>
                 <tr>
                   <th>Fecha</th>
@@ -141,7 +172,7 @@ const AreaCliente = () => {
       </h3>
       {seccionesAbiertas.cambiarContraseña && (
         <div className="cambiarContraseñaContainer">
-          <form onSubmit={manejarCambioContraseña}>
+          <form onSubmit={cambioContraseña}>
             <div className="campo">
               <label>Contraseña Actual:</label>
               <input
@@ -173,8 +204,8 @@ const AreaCliente = () => {
               Cambiar Contraseña
             </button>
           </form>
-          <p className={`mensaje ${mensaje.includes('Error') ? 'error' : 'exito'}`}>
-            {mensaje}
+          <p className={`mensaje ${mensajeContraseña.includes('Error') ? 'error' : 'exito'}`}>
+            {mensajeContraseña}
           </p>
         </div>
       )}

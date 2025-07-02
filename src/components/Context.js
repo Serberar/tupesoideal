@@ -11,7 +11,7 @@ export class MyProvider extends Component {
     items: [],
     subtotal: 0,
     userData: null,
-    mensajeContraseña:"",
+    mensajeContraseña: "",
     post: [],
     datosUsuario: {
       first_name: "",
@@ -41,9 +41,16 @@ export class MyProvider extends Component {
     await this.productosDescargados();
     await this.descargarPost();
   }
+
+  /******************* Componente Login ***************************************/
+  almacenarDatosUsuario = (datosUsuario) => {
+    localStorage.setItem('userData', JSON.stringify(datosUsuario))
+    this.setState({ userData: datosUsuario })
+  }
+
+
   /*******************Componente Area cliente ***************************************/
-  
-  //obtener los datos privados del cliente
+
   obtenerDatosCliente = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_API}/customers/${this.state.userData.usuario.id}`, {
@@ -71,7 +78,6 @@ export class MyProvider extends Component {
     }
   };
 
-  //guardar cambios en los datos de cliente 
   guardarCambioDatosCliente = async (campo) => {
     try {
       const response = await axios.put(`${process.env.REACT_APP_API}/customers/${this.state.userData.usuario.id}`, campo, {
@@ -85,7 +91,6 @@ export class MyProvider extends Component {
     }
   };
 
-  //descargar historico de pedidos del cliente
   historicoPedidos = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_API}/orders?customer=${this.state.userData.usuario.id}`, {
@@ -100,34 +105,47 @@ export class MyProvider extends Component {
     }
   }
 
-// Actualizar contraseña
-actualizarContraseña = async (currentPassword, newPassword) => {
-  try {
-    const response = await axios.post(
-      `${process.env.REACT_APP_WP_CUSTOM}/update-password`, 
-      {
-        current_password: currentPassword, 
-        password: newPassword
-      },
-      {
-        auth: {
-          username: this.state.userData.usuario?.user, 
-          password: currentPassword 
+  actualizarContraseña = async (currentPassword, newPassword) => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_WP_CUSTOM}/update-password`,
+        {
+          current_password: currentPassword,
+          password: newPassword
+        },
+        {
+          auth: {
+            username: this.state.userData.usuario?.user,
+            password: currentPassword
+          }
         }
-      }
-    );
+      );
 
-    this.setState({
-      mensajeContraseña: response.data?.message || "Contraseña actualizada correctamente.",
-    });
+      this.setState({
+        mensajeContraseña: response.data?.message || "Contraseña actualizada correctamente.",
+      });
 
-  } catch (error) {
-    this.setState({ mensajeContraseña: 'Error al realizar el cambio de contraseña' })
-    console.error('Error al realizar la solicitud:', error.response?.data || error.message);
-  }
-};
+    } catch (error) {
+      this.setState({ mensajeContraseña: 'Error al realizar el cambio de contraseña' })
+      console.error('Error al realizar la solicitud:', error.response?.data || error.message);
+    }
+  };
 
-   /*******************Componente Portada ***************************************/
+  cambioContraseña = async (e) => {
+    e.preventDefault();
+    const currentPassword = e.target.currentPassword.value;
+    const newPassword = e.target.newPassword.value;
+    const confirmPassword = e.target.confirmPassword.value;
+
+    if (newPassword !== confirmPassword) {
+      this.setState({ mensajeContraseña: 'Las contraseñas nuevas no coinciden.' })
+      return;
+    }
+    this.actualizarContraseña(currentPassword, newPassword);
+    e.target.reset();
+  };
+
+  /*******************Componente Portada ***************************************/
 
   //descargar los textos de la web desde wordpress
   descargarPost = async () => {
@@ -166,7 +184,7 @@ actualizarContraseña = async (currentPassword, newPassword) => {
         return {
           id: post.id,
           titulo: post.title.rendered,
-          bloques // Solo bloques, ya que no necesitas `imagenes`
+          bloques // Solo bloques, ya que no necesita `imagenes`
         };
       });
 
@@ -177,7 +195,6 @@ actualizarContraseña = async (currentPassword, newPassword) => {
     }
   };
 
-  // Descargar la lista de productos
   productosDescargados = () => {
     axios({
       method: 'get',
@@ -197,9 +214,8 @@ actualizarContraseña = async (currentPassword, newPassword) => {
       })
   }
 
-   /*******************Componente Carrito ***************************************/
+  /*******************Componente Carrito ***************************************/
 
-  // Añadir producto al carrito
   agregarAlCarrito = (producto) => {
     // Revisa si el producto esta en el carrito
     const exists = this.state.items.filter(item => item.id === producto.id)
@@ -253,7 +269,6 @@ actualizarContraseña = async (currentPassword, newPassword) => {
     })
   }
 
-  // Calcula el subtotal
   calcularSubtotal = () => {
     let subtotal = 0
 
@@ -269,14 +284,6 @@ actualizarContraseña = async (currentPassword, newPassword) => {
   round = (value, decimals) => {
     return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals)
   }
-
-  // almacena los datos en userData
-  almacenarDatosUsuario = (datosUsuario) => {
-    localStorage.setItem('userData', JSON.stringify(datosUsuario))
-    this.setState({ userData: datosUsuario })
-  }
-
-  // envia los datos del pedido
 
   enviarPedido = async () => {
     const { userData, items } = this.state;
@@ -333,7 +340,6 @@ actualizarContraseña = async (currentPassword, newPassword) => {
     }
   }
 
-  // actualizar cantidades del carrito
   actualizarCantidadEnCarrito = (updatedItems) => {
     this.setState({
       items: updatedItems
@@ -344,23 +350,49 @@ actualizarContraseña = async (currentPassword, newPassword) => {
     })
   }
 
+  aumentarCantidad = (itemId) => {
+    const updatedItems = this.state.items.map(item => {
+      if (item.id === itemId) {
+        return { ...item, quantity: item.quantity + 1 };
+      }
+      return item;
+    });
+    this.actualizarCantidadEnCarrito(updatedItems);
+  };
+
+  reducirCantidad = (itemId) => {
+    const updatedItems = this.state.items.map(item => {
+      if (item.id === itemId && item.quantity > 1) {
+        return { ...item, quantity: item.quantity - 1 };
+      }
+      return item;
+    });
+    this.actualizarCantidadEnCarrito(updatedItems);
+  };
+
+
   render() {
     return (
       <myContext.Provider value={{
         state: this.state,
-        productosDescargados: this.productosDescargados,
-        descargarPost: this.descargarPost,
-        agregarAlCarrito: this.agregarAlCarrito,
-        eliminarDelCarrito: this.eliminarDelCarrito,
+        //Componente login
         almacenarDatosUsuario: this.almacenarDatosUsuario,
-        enviarPedido: this.enviarPedido,
-        actualizarCantidadEnCarrito: this.actualizarCantidadEnCarrito,
+        //Componente area cliente
         obtenerDatosCliente: this.obtenerDatosCliente,
         guardarCambioDatosCliente: this.guardarCambioDatosCliente,
-        descargarDatosAreaPrivada: this.descargarDatosAreaPrivada,
-        descargarArchivoAreaPrivada: this.descargarArchivoAreaPrivada,
         historicoPedidos: this.historicoPedidos,
-        actualizarContraseña: this.actualizarContraseña
+        actualizarContraseña: this.actualizarContraseña,
+        cambioContraseña: this.cambioContraseña,
+        //Componente portada
+        descargarPost: this.descargarPost,
+        productosDescargados: this.productosDescargados,
+        // Componente carrito
+        agregarAlCarrito: this.agregarAlCarrito,
+        eliminarDelCarrito: this.eliminarDelCarrito,
+        enviarPedido: this.enviarPedido,
+        actualizarCantidadEnCarrito: this.actualizarCantidadEnCarrito,
+        aumentarCantidad: this.aumentarCantidad,
+        reducirCantidad: this.reducirCantidad
       }}
       >
         {this.props.children}

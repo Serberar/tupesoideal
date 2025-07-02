@@ -4,31 +4,10 @@ import { myContext } from '../../components/Context'
 import './Carrito.css'
 
 const Carrito = () => {
-  const { state, eliminarDelCarrito, enviarPedido, actualizarCantidadEnCarrito } = useContext(myContext)
+  const { state, eliminarDelCarrito, enviarPedido, aumentarCantidad, reducirCantidad } = useContext(myContext)
 
   // Verificar si hay datos de usuario en el estado
   const usuario = state.userData ? state.userData : null;
-console.log('usuario',usuario);
-
-  const aumentarCantidad = (itemId) => {
-    const updatedItems = state.items.map((item) => {
-      if (item.id === itemId) {
-        return { ...item, quantity: item.quantity + 1 }
-      }
-      return item
-    })
-    actualizarCantidadEnCarrito(updatedItems)
-  }
-
-  const reducirCantidad = (itemId) => {
-    const updatedItems = state.items.map((item) => {
-      if (item.id === itemId && item.quantity > 1) {
-        return { ...item, quantity: item.quantity - 1 }
-      }
-      return item
-    })
-    actualizarCantidadEnCarrito(updatedItems)
-  }
 
   return (
     <div className='carrito'>
